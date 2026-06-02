@@ -124,10 +124,9 @@
     }
 
     .hero-slide {
-      min-width: 100%;
+      flex: 0 0 100%;
       max-height: 92vh;
       overflow: hidden;
-      flex-shrink: 0;
     }
 
     .hero-slide img {
@@ -521,6 +520,15 @@
       slider.addEventListener('keydown', e => {
         if (e.key === 'ArrowRight') { next(); startAuto(); }
         if (e.key === 'ArrowLeft')  { prev(); startAuto(); }
+      });
+
+      // ── Snap position on resize (no transition flash) ──
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        track.classList.add('no-transition');
+        track.style.transform = `translateX(-${pos * 100}%)`;
+        resizeTimer = setTimeout(() => track.classList.remove('no-transition'), 150);
       });
 
       startAuto();
