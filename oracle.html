@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pull your codes — The Almanac</title>
+  <meta name="description" content="Draw three codes from the Almanac. A trio of original paintings, yours to keep.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #F9F8F6;
+      --nav-bg:    #F5EEE9;
+      --pink:      #EDD8CF;
+      --border:    #E2D8D2;
+      --ink:       #2A2825;
+      --muted:     #9E8880;
+      --body-text: #7A6E6A;
+      --klein:     #002FA7;
+      --font:      'Jost', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font);
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+    a:hover { color: var(--klein); }
+
+    /* ─── NAV ─── */
+    nav {
+      background-color: var(--nav-bg);
+      border-bottom: 0.5px solid var(--border);
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-size: 12px;
+      font-weight: 200;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover { color: var(--klein); }
+
+    .nav-instagram {
+      display: flex;
+      align-items: center;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .nav-instagram:hover { color: var(--klein); }
+
+    .nav-instagram svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ─── PAGE ─── */
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 64px 28px 80px;
+      text-align: center;
+    }
+
+    .page-eyebrow {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .page-title {
+      font-size: 26px;
+      font-weight: 200;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+
+    .page-sub {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--body-text);
+      line-height: 1.8;
+      max-width: 420px;
+      margin: 0 auto 48px;
+    }
+
+    /* ─── SLOTS ─── */
+    .slots {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .slot {
+      flex: 1;
+      max-width: 180px;
+      position: relative;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Reel window */
+    .slot-window {
+      width: 100%;
+      aspect-ratio: 3/4;
+      overflow: hidden;
+      border: 0.5px solid var(--border);
+      background: var(--pink);
+      position: relative;
+      border-radius: 2px;
+    }
+
+    /* The strip that scrolls */
+    .slot-strip {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .slot-strip img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    /* Lock overlay */
+    .slot-lock {
+      position: absolute;
+      inset: 0;
+      background: rgba(237, 216, 207, 0.0);
+      border: 2px solid transparent;
+      border-radius: 2px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 10px;
+      transition: all 0.2s ease;
+      z-index: 2;
+    }
+
+    .slot.locked .slot-lock {
+      background: rgba(237, 216, 207, 0.18);
+      border-color: var(--pink);
+    }
+
+    .slot-lock-label {
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: transparent;
+      transition: color 0.2s ease;
+      background: var(--bg);
+      padding: 4px 10px;
+      border: 0.5px solid var(--border);
+    }
+
+    .slot.locked .slot-lock-label {
+      color: var(--muted);
+    }
+
+    .slot:hover .slot-lock-label {
+      color: var(--muted);
+    }
+
+    /* Roll counter per slot */
+    .slot-counter {
+      margin-top: 8px;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      height: 16px;
+    }
+
+    .slot-counter span {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--border);
+      margin: 0 2px;
+      vertical-align: middle;
+      transition: background 0.2s ease;
+    }
+
+    .slot-counter span.used {
+      background: var(--pink);
+    }
+
+    .slot-counter span.locked-dot {
+      background: var(--klein);
+    }
+
+    /* ─── CONTROLS ─── */
+    .controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      padding: 16px 40px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-roll {
+      background: var(--ink);
+      color: #fff;
+      min-width: 220px;
+    }
+
+    .btn-roll:hover:not(:disabled) { background: var(--klein); }
+
+    .btn-roll:disabled {
+      background: var(--border);
+      color: var(--muted);
+      cursor: not-allowed;
+    }
+
+    .btn-purchase {
+      background: var(--klein);
+      color: #fff;
+      min-width: 220px;
+    }
+
+    .btn-purchase:hover { background: var(--ink); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--muted);
+      border: 0.5px solid var(--border);
+      min-width: 220px;
+      font-size: 10px;
+    }
+
+    .btn-secondary:hover { color: var(--ink); border-color: var(--ink); }
+
+    .roll-info {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    /* ─── ACTION PANEL ─── */
+    .action-panel {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 40px 28px;
+      border-top: 0.5px solid var(--border);
+      margin-top: 8px;
+    }
+
+    .action-panel.visible { display: flex; }
+
+    .action-title {
+      font-size: 18px;
+      font-weight: 200;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .action-sub {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--body-text);
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+
+    .divider-text {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .divider-text::before,
+    .divider-text::after {
+      content: '';
+      flex: 1;
+      border-top: 0.5px solid var(--border);
+    }
+
+    /* Email form */
+    .email-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .email-form input {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: 0;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+      padding: 14px 16px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .email-form input::placeholder {
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    .email-form input:focus { border-color: var(--ink); }
+
+    .btn-email {
+      background: var(--pink);
+      color: var(--ink);
+      border: none;
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      padding: 14px;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .btn-email:hover { background: var(--ink); color: #fff; }
+
+    .inquire-line {
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      margin-top: 8px;
+    }
+
+    .inquire-line a {
+      color: var(--ink);
+      border-bottom: 0.5px solid var(--ink);
+      padding-bottom: 1px;
+    }
+
+    /* Email success */
+    .email-success {
+      display: none;
+      font-size: 14px;
+      font-weight: 200;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 32px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-top: 0.5px solid var(--border);
+    }
+
+    .footer-logo {
+      font-size: 11px;
+      font-weight: 200;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+
+    .footer-links a {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .footer-links a:hover { color: var(--klein); }
+
+    :focus-visible { outline: 2px solid var(--klein); outline-offset: 3px; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="The Almanac — home">The Almanac</a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="collections.html">Collections</a></li>
+      <li><a href="studio.html">Studio</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li>
+        <a href="https://www.instagram.com/thealmanac.love/"
+           target="_blank" rel="noopener noreferrer"
+           class="nav-instagram" aria-label="The Almanac on Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- PAGE -->
+  <main class="page">
+
+    <p class="page-eyebrow">The Oracle</p>
+    <h1 class="page-title">Pull your codes from the Almanac</h1>
+    <p class="page-sub">Three paintings drawn for you from the library. Lock what calls to you. Roll what doesn't. Yours to keep — as a digital trio or an original.</p>
+
+    <!-- SLOTS -->
+    <div class="slots" id="slots">
+
+      <div class="slot" id="slot-0" onclick="toggleLock(0)">
+        <div class="slot-window">
+          <div class="slot-strip" id="strip-0"></div>
+          <div class="slot-lock">
+            <span class="slot-lock-label">Locked</span>
+          </div>
+        </div>
+        <div class="slot-counter" id="counter-0">
+          <span></span><span></span>
+        </div>
+      </div>
+
+      <div class="slot" id="slot-1" onclick="toggleLock(1)">
+        <div class="slot-window">
+          <div class="slot-strip" id="strip-1"></div>
+          <div class="slot-lock">
+            <span class="slot-lock-label">Locked</span>
+          </div>
+        </div>
+        <div class="slot-counter" id="counter-1">
+          <span></span><span></span>
+        </div>
+      </div>
+
+      <div class="slot" id="slot-2" onclick="toggleLock(2)">
+        <div class="slot-window">
+          <div class="slot-strip" id="strip-2"></div>
+          <div class="slot-lock">
+            <span class="slot-lock-label">Locked</span>
+          </div>
+        </div>
+        <div class="slot-counter" id="counter-2">
+          <span></span><span></span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+      <button class="btn btn-roll" id="rollBtn" onclick="rollAll()">
+        ✦ &nbsp;Draw from the Almanac
+      </button>
+      <p class="roll-info" id="rollInfo" style="display:none;">
+        Tap a painting to lock it · 2 re-rolls remaining per image
+      </p>
+    </div>
+
+    <!-- ACTION PANEL -->
+    <div class="action-panel" id="actionPanel">
+
+      <p class="action-title">Your trio is ready</p>
+      <p class="action-sub">44€ for the digital trio — three high-resolution files, yours forever.</p>
+
+      <button class="btn btn-purchase" onclick="purchase()">
+        Purchase — 44€
+      </button>
+
+      <div class="divider-text">or</div>
+
+      <div class="email-form" id="emailForm">
+        <input type="email" id="emailInput" placeholder="Your email" autocomplete="email">
+        <button class="btn-email" onclick="submitEmail()">Receive by email</button>
+      </div>
+
+      <div class="email-success" id="emailSuccess">
+        ✦ &nbsp; Your trio has been saved. We'll be in touch.
+      </div>
+
+      <p class="inquire-line">
+        Interested in the originals?
+        <a href="mailto:thealmanac.elisa@gmail.com">Inquire here</a>
+      </p>
+
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">thealmanac.love</span>
+    <ul class="footer-links">
+      <li><a href="https://www.instagram.com/thealmanac.love/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+      <li><a href="mailto:thealmanac.elisa@gmail.com">Email</a></li>
+    </ul>
+  </footer>
+
+  <script>
+  (function () {
+
+    const TOTAL       = 48;
+    const MAX_REROLLS = 2;
+    const STRIPE_URL  = 'https://buy.stripe.com/9B6fZhbuL9xCct4eUfbwk0d';
+    const MAILERLITE_ACCOUNT = '2088881';
+    const MAILERLITE_FORM    = 'FB75Kf';
+
+    // Build pool: ['paintings/img01.png', ..., 'paintings/img48.png']
+    const pool = Array.from({ length: TOTAL }, (_, i) =>
+      `paintings/img${String(i + 1).padStart(2, '0')}.png`
+    );
+
+    // State
+    const state = {
+      current:  [null, null, null],   // current image index per slot
+      locked:   [false, false, false],
+      rerolls:  [0, 0, 0],            // re-rolls used per slot
+      hasRolled: false,
+      spinning:  [false, false, false]
+    };
+
+    // Preload all images
+    pool.forEach(src => { const img = new Image(); img.src = src; });
+
+    // ── Build strips (each strip holds several img tags for scroll illusion) ──
+    function buildStrips() {
+      for (let s = 0; s < 3; s++) {
+        const strip = document.getElementById(`strip-${s}`);
+        strip.innerHTML = '';
+        // We'll populate dynamically during spin
+      }
+    }
+
+    buildStrips();
+
+    // ── Pick a random index not currently shown in other slots ──
+    function pickRandom(excludeIndices) {
+      let idx;
+      let tries = 0;
+      do {
+        idx = Math.floor(Math.random() * TOTAL);
+        tries++;
+      } while (excludeIndices.includes(idx) && tries < 100);
+      return idx;
+    }
+
+    // ── Animate a single slot spinning ──
+    function spinSlot(slotIndex, targetIndex, duration, onDone) {
+      const strip = document.getElementById(`strip-${slotIndex}`);
+      strip.innerHTML = '';
+
+      // Build a sequence: random images + target at the end
+      // More frames = faster apparent spin
+      const frameCount = 18;
+      const frames = [];
+
+      for (let i = 0; i < frameCount - 1; i++) {
+        frames.push(Math.floor(Math.random() * TOTAL));
+      }
+      frames.push(targetIndex); // always land on target
+
+      // Append all frame images to strip
+      frames.forEach(fi => {
+        const img = document.createElement('img');
+        img.src = pool[fi];
+        img.alt = '';
+        img.draggable = false;
+        strip.appendChild(img);
+      });
+
+      // Start at top
+      strip.style.transition = 'none';
+      strip.style.top = '0%';
+
+      // Force reflow
+      strip.getBoundingClientRect();
+
+      // Easing: fast start, slow end
+      // We animate through each frame with increasing delay
+      let frame = 0;
+
+      function showFrame() {
+        if (frame >= frames.length) {
+          if (onDone) onDone();
+          return;
+        }
+
+        // Progress 0→1
+        const progress = frame / (frames.length - 1);
+
+        // Ease: slow down as progress approaches 1
+        // interval grows from ~30ms to ~200ms
+        const minInterval = 28;
+        const maxInterval = 220;
+        const eased = progress * progress; // quadratic ease-in for deceleration
+        const interval = minInterval + (maxInterval - minInterval) * eased;
+
+        // Move strip to show current frame
+        strip.style.transition = 'none';
+        strip.style.top = `-${frame * 100}%`;
+
+        frame++;
+        setTimeout(showFrame, interval);
+      }
+
+      showFrame();
+    }
+
+    // ── Roll ──
+    window.rollAll = function () {
+      const btn = document.getElementById('rollBtn');
+
+      // Determine which slots to spin
+      const toSpin = [];
+      for (let s = 0; s < 3; s++) {
+        if (!state.locked[s]) toSpin.push(s);
+      }
+
+      if (toSpin.length === 0) return;
+
+      // Disable button during spin
+      btn.disabled = true;
+      state.hasRolled = true;
+
+      // Hide action panel while re-rolling
+      document.getElementById('actionPanel').classList.remove('visible');
+
+      // Pick targets (avoid duplicates)
+      const lockedIndices = state.current
+        .filter((v, i) => state.locked[i] && v !== null);
+
+      const newTargets = [];
+      toSpin.forEach(s => {
+        const exclude = [...lockedIndices, ...newTargets];
+        const idx = pickRandom(exclude);
+        newTargets.push(idx);
+        state.current[s] = idx;
+        if (state.hasRolled && !isFirstRoll()) {
+          state.rerolls[s]++;
+        }
+      });
+
+      let done = 0;
+
+      toSpin.forEach((s, i) => {
+        const delay = i * 120; // stagger slots slightly
+        setTimeout(() => {
+          spinSlot(s, state.current[s], 1800, () => {
+            done++;
+            updateCounter(s);
+            if (done === toSpin.length) {
+              onAllDone();
+            }
+          });
+        }, delay);
+      });
+    };
+
+    function isFirstRoll() {
+      return state.rerolls.every(r => r === 0) &&
+             state.current.every(c => c !== null) === false;
+    }
+
+    function onAllDone() {
+      const btn = document.getElementById('rollBtn');
+      const rollInfo = document.getElementById('rollInfo');
+
+      rollInfo.style.display = 'block';
+
+      // Check if any slot still has re-rolls left and is unlocked
+      const canRoll = state.current.some((c, i) =>
+        !state.locked[i] && state.rerolls[i] < MAX_REROLLS
+      );
+
+      // Also: after first roll, re-rolls count starts — first roll doesn't cost
+      const isFirst = state.rerolls.every(r => r === 0);
+
+      if (!isFirst && !canRoll) {
+        btn.disabled = true;
+        btn.textContent = '✦  All codes drawn';
+      } else {
+        btn.disabled = false;
+        if (isFirst) {
+          btn.innerHTML = '↺ &nbsp; Re-roll';
+        } else {
+          btn.innerHTML = '↺ &nbsp; Re-roll unlocked';
+        }
+      }
+
+      // Always show action panel after first roll
+      document.getElementById('actionPanel').classList.add('visible');
+    }
+
+    // ── Lock / unlock ──
+    window.toggleLock = function (s) {
+      if (!state.hasRolled) return;
+      if (state.current[s] === null) return;
+
+      state.locked[s] = !state.locked[s];
+      document.getElementById(`slot-${s}`).classList.toggle('locked', state.locked[s]);
+      updateCounter(s);
+
+      // Recheck roll button
+      const canRoll = state.current.some((c, i) =>
+        !state.locked[i] && state.rerolls[i] < MAX_REROLLS
+      );
+      const btn = document.getElementById('rollBtn');
+      if (canRoll) {
+        btn.disabled = false;
+      }
+    };
+
+    // ── Update re-roll dots ──
+    function updateCounter(s) {
+      const counter = document.getElementById(`counter-${s}`);
+      const dots = counter.querySelectorAll('span');
+      dots.forEach((dot, i) => {
+        dot.className = '';
+        if (state.locked[s]) {
+          dot.classList.add('locked-dot');
+        } else if (i < state.rerolls[s]) {
+          dot.classList.add('used');
+        }
+      });
+    }
+
+    // ── Purchase ──
+    window.purchase = function () {
+      const trio = state.current.map(i =>
+        i !== null ? `img${String(i + 1).padStart(2, '0')}` : ''
+      ).join(',');
+
+      const successUrl = encodeURIComponent(
+        `${window.location.origin}${window.location.pathname.replace('oracle.html', '')}success.html?trio=${trio}`
+      );
+
+      // Stripe payment link — append success redirect if supported
+      // Standard Stripe Payment Links don't support custom success URLs via param
+      // so we just navigate to Stripe and handle success separately
+      window.location.href = STRIPE_URL;
+    };
+
+    // ── Email submit ──
+    window.submitEmail = function () {
+      const email = document.getElementById('emailInput').value.trim();
+      if (!email || !email.includes('@')) {
+        document.getElementById('emailInput').focus();
+        return;
+      }
+
+      const trio = state.current.map(i =>
+        i !== null ? `img${String(i + 1).padStart(2, '0')}` : ''
+      ).join(', ');
+
+      // Submit to MailerLite via their embed endpoint
+      const form = document.createElement('form');
+      form.action = `https://assets.mailerlite.com/jsonp/${MAILERLITE_ACCOUNT}/forms/180370302660773235/subscribe`;
+      form.method = 'POST';
+      form.target = '_blank';
+      form.style.display = 'none';
+
+      const fields = {
+        'fields[email]': email,
+        'fields[name]':  '',
+        'ml-submit':     '1',
+        'anticsrf':      'true'
+      };
+
+      Object.entries(fields).forEach(([k, v]) => {
+        const input = document.createElement('input');
+        input.type  = 'hidden';
+        input.name  = k;
+        input.value = v;
+        form.appendChild(input);
+      });
+
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+
+      // Show success
+      document.getElementById('emailForm').style.display    = 'none';
+      document.getElementById('emailSuccess').style.display = 'block';
+    };
+
+  })();
+  </script>
+
+</body>
+</html>
