@@ -149,10 +149,9 @@
     /* Reel window */
     .slot-window {
       width: 100%;
-      aspect-ratio: 3/4;
+      aspect-ratio: 74 / 105;
       overflow: hidden;
-      border: 0.5px solid var(--border);
-      background: var(--pink);
+      background: transparent;
       position: relative;
       border-radius: 2px;
     }
@@ -169,8 +168,9 @@
 
     .slot-strip img {
       width: 100%;
-      aspect-ratio: 3/4;
-      object-fit: cover;
+      aspect-ratio: 74 / 105;
+      object-fit: contain;
+      object-position: center center;
       flex-shrink: 0;
       display: block;
     }
@@ -195,23 +195,35 @@
       border-color: var(--pink);
     }
 
-    .slot-lock-label {
-      font-size: 9px;
-      font-weight: 300;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
+    .lock-icon {
+      width: 20px;
+      height: 20px;
       color: transparent;
       transition: color 0.2s ease;
-      background: var(--bg);
-      padding: 4px 10px;
-      border: 0.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .slot.locked .slot-lock-label {
+    .lock-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .lock-closed {
+      display: none;
+    }
+
+    .slot:hover .lock-open {
       color: var(--muted);
     }
 
-    .slot:hover .slot-lock-label {
+    .slot.locked .lock-open {
+      display: none;
+    }
+
+    .slot.locked .lock-closed {
+      display: flex;
       color: var(--muted);
     }
 
@@ -472,6 +484,7 @@
       <li><a href="about.html">About</a></li>
       <li><a href="collections.html">Collections</a></li>
       <li><a href="studio.html">Studio</a></li>
+    <li><a href="oracle.html">Oracle</a></li>
       <li><a href="store.html">Store</a></li>
       <li>
         <a href="https://www.instagram.com/thealmanac.love/"
@@ -501,7 +514,18 @@
         <div class="slot-window">
           <div class="slot-strip" id="strip-0"></div>
           <div class="slot-lock">
-            <span class="slot-lock-label">Locked</span>
+            <span class="lock-icon lock-open">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="5" y="11" width="14" height="10" rx="2"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0"/>
+              </svg>
+            </span>
+            <span class="lock-icon lock-closed">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="5" y="11" width="14" height="10" rx="2"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+              </svg>
+            </span>
           </div>
         </div>
         <div class="slot-counter" id="counter-0">
@@ -513,7 +537,18 @@
         <div class="slot-window">
           <div class="slot-strip" id="strip-1"></div>
           <div class="slot-lock">
-            <span class="slot-lock-label">Locked</span>
+            <span class="lock-icon lock-open">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="5" y="11" width="14" height="10" rx="2"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0"/>
+              </svg>
+            </span>
+            <span class="lock-icon lock-closed">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="5" y="11" width="14" height="10" rx="2"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+              </svg>
+            </span>
           </div>
         </div>
         <div class="slot-counter" id="counter-1">
@@ -525,7 +560,18 @@
         <div class="slot-window">
           <div class="slot-strip" id="strip-2"></div>
           <div class="slot-lock">
-            <span class="slot-lock-label">Locked</span>
+            <span class="lock-icon lock-open">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="5" y="11" width="14" height="10" rx="2"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0"/>
+              </svg>
+            </span>
+            <span class="lock-icon lock-closed">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="5" y="11" width="14" height="10" rx="2"/>
+                <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+              </svg>
+            </span>
           </div>
         </div>
         <div class="slot-counter" id="counter-2">
@@ -595,7 +641,7 @@
 
     // Build pool: ['paintings/img01.png', ..., 'paintings/img48.png']
     const pool = Array.from({ length: TOTAL }, (_, i) =>
-      `paintings/img${String(i + 1).padStart(2, '0')}.png`
+      `roll/img${String(i + 1).padStart(2, '0')}.png`
     );
 
     // State
@@ -609,13 +655,18 @@
 
     // Preload all images
     pool.forEach(src => { const img = new Image(); img.src = src; });
+    const _backImg = new Image(); _backImg.src = 'roll/backimg.webp';
 
     // ── Build strips (each strip holds several img tags for scroll illusion) ──
     function buildStrips() {
       for (let s = 0; s < 3; s++) {
         const strip = document.getElementById(`strip-${s}`);
         strip.innerHTML = '';
-        // We'll populate dynamically during spin
+        const img = document.createElement('img');
+        img.src = 'roll/backimg.webp';
+        img.alt = '';
+        img.draggable = false;
+        strip.appendChild(img);
       }
     }
 
