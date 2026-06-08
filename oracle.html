@@ -227,32 +227,23 @@
       color: var(--muted);
     }
 
-    /* Roll counter per slot */
-    .slot-counter {
-      margin-top: 8px;
-      font-size: 10px;
-      font-weight: 300;
-      letter-spacing: 0.14em;
-      color: var(--muted);
-      height: 16px;
+    /* Roll press counter */
+    .roll-dots {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
     }
 
-    .slot-counter span {
-      display: inline-block;
-      width: 6px;
-      height: 6px;
+    .roll-dot {
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--border);
-      margin: 0 2px;
-      vertical-align: middle;
-      transition: background 0.2s ease;
+      transition: background 0.3s ease;
     }
 
-    .slot-counter span.used {
-      background: var(--pink);
-    }
-
-    .slot-counter span.locked-dot {
+    .roll-dot.pressed {
       background: var(--klein);
     }
 
@@ -293,14 +284,6 @@
       color: var(--muted);
       cursor: not-allowed;
     }
-
-    .btn-purchase {
-      background: var(--klein);
-      color: #fff;
-      min-width: 220px;
-    }
-
-    .btn-purchase:hover { background: var(--ink); }
 
     .btn-secondary {
       background: transparent;
@@ -528,9 +511,6 @@
             </span>
           </div>
         </div>
-        <div class="slot-counter" id="counter-0">
-          <span></span><span></span>
-        </div>
       </div>
 
       <div class="slot" id="slot-1" onclick="toggleLock(1)">
@@ -550,9 +530,6 @@
               </svg>
             </span>
           </div>
-        </div>
-        <div class="slot-counter" id="counter-1">
-          <span></span><span></span>
         </div>
       </div>
 
@@ -574,9 +551,6 @@
             </span>
           </div>
         </div>
-        <div class="slot-counter" id="counter-2">
-          <span></span><span></span>
-        </div>
       </div>
 
     </div>
@@ -586,8 +560,13 @@
       <button class="btn btn-roll" id="rollBtn" onclick="rollAll()">
         ✦ &nbsp;Draw from the Almanac
       </button>
+      <div class="roll-dots" id="rollDots" style="display:none;">
+        <span class="roll-dot"></span>
+        <span class="roll-dot"></span>
+        <span class="roll-dot"></span>
+      </div>
       <p class="roll-info" id="rollInfo" style="display:none;">
-        Tap a painting to lock it · 2 re-rolls remaining per image
+        Tap a painting to lock it
       </p>
     </div>
 
@@ -595,13 +574,7 @@
     <div class="action-panel" id="actionPanel">
 
       <p class="action-title">Your trio is ready</p>
-      <p class="action-sub">44€ for the digital trio — three high-resolution files, yours forever.</p>
-
-      <button class="btn btn-purchase" onclick="purchase()">
-        Purchase — 44€
-      </button>
-
-      <div class="divider-text">or</div>
+      <p class="roll-info">to receive the digital version, please submit your email</p>
 
       <div class="email-form" id="emailForm">
         <input type="email" id="emailInput" placeholder="Your email" autocomplete="email">
@@ -633,9 +606,7 @@
   <script>
   (function () {
 
-    const TOTAL       = 48;
-    const MAX_REROLLS = 2;
-    const STRIPE_URL  = 'https://buy.stripe.com/9B6fZhbuL9xCct4eUfbwk0d';
+    const TOTAL = 48;
     const MAILERLITE_ACCOUNT = '2088881';
     const MAILERLITE_FORM    = 'FB75Kf';
 
@@ -646,11 +617,10 @@
 
     // State
     const state = {
-      current:  [null, null, null],   // current image index per slot
-      locked:   [false, false, false],
-      rerolls:  [0, 0, 0],            // re-rolls used per slot
-      hasRolled: false,
-      spinning:  [false, false, false]
+      current:    [null, null, null],
+      locked:     [false, false, false],
+      hasRolled:  false,
+      pressCount: 0
     };
 
     // Preload all images
@@ -760,6 +730,8 @@
       // Disable button during spin
       btn.disabled = true;
       state.hasRolled = true;
+      state.pressCount++;
+      updatePressDots();
 
       // Hide action panel while re-rolling
       document.getElementById('actionPanel').classList.remove('visible');
@@ -774,19 +746,15 @@
         const idx = pickRandom(exclude);
         newTargets.push(idx);
         state.current[s] = idx;
-        if (state.hasRolled && !isFirstRoll()) {
-          state.rerolls[s]++;
-        }
       });
 
       let done = 0;
 
       toSpin.forEach((s, i) => {
-        const delay = i * 120; // stagger slots slightly
+        const delay = i * 120;
         setTimeout(() => {
           spinSlot(s, state.current[s], 1800, () => {
             done++;
-            updateCounter(s);
             if (done === toSpin.length) {
               onAllDone();
             }
@@ -795,38 +763,26 @@
       });
     };
 
-    function isFirstRoll() {
-      return state.rerolls.every(r => r === 0) &&
-             state.current.every(c => c !== null) === false;
+    function updatePressDots() {
+      document.querySelectorAll('.roll-dot').forEach((dot, i) => {
+        dot.classList.toggle('pressed', i < state.pressCount);
+      });
     }
 
     function onAllDone() {
       const btn = document.getElementById('rollBtn');
-      const rollInfo = document.getElementById('rollInfo');
 
-      rollInfo.style.display = 'block';
+      document.getElementById('rollDots').style.display = 'flex';
+      document.getElementById('rollInfo').style.display = 'block';
 
-      // Check if any slot still has re-rolls left and is unlocked
-      const canRoll = state.current.some((c, i) =>
-        !state.locked[i] && state.rerolls[i] < MAX_REROLLS
-      );
-
-      // Also: after first roll, re-rolls count starts — first roll doesn't cost
-      const isFirst = state.rerolls.every(r => r === 0);
-
-      if (!isFirst && !canRoll) {
+      if (state.pressCount >= 3) {
         btn.disabled = true;
-        btn.textContent = '✦  All codes drawn';
+        btn.innerHTML = '✦ &nbsp;All codes drawn';
       } else {
         btn.disabled = false;
-        if (isFirst) {
-          btn.innerHTML = '↺ &nbsp; Re-roll';
-        } else {
-          btn.innerHTML = '↺ &nbsp; Re-roll unlocked';
-        }
+        btn.innerHTML = '↺ &nbsp;Re-roll';
       }
 
-      // Always show action panel after first roll
       document.getElementById('actionPanel').classList.add('visible');
     }
 
@@ -837,46 +793,6 @@
 
       state.locked[s] = !state.locked[s];
       document.getElementById(`slot-${s}`).classList.toggle('locked', state.locked[s]);
-      updateCounter(s);
-
-      // Recheck roll button
-      const canRoll = state.current.some((c, i) =>
-        !state.locked[i] && state.rerolls[i] < MAX_REROLLS
-      );
-      const btn = document.getElementById('rollBtn');
-      if (canRoll) {
-        btn.disabled = false;
-      }
-    };
-
-    // ── Update re-roll dots ──
-    function updateCounter(s) {
-      const counter = document.getElementById(`counter-${s}`);
-      const dots = counter.querySelectorAll('span');
-      dots.forEach((dot, i) => {
-        dot.className = '';
-        if (state.locked[s]) {
-          dot.classList.add('locked-dot');
-        } else if (i < state.rerolls[s]) {
-          dot.classList.add('used');
-        }
-      });
-    }
-
-    // ── Purchase ──
-    window.purchase = function () {
-      const trio = state.current.map(i =>
-        i !== null ? `img${String(i + 1).padStart(2, '0')}` : ''
-      ).join(',');
-
-      const successUrl = encodeURIComponent(
-        `${window.location.origin}${window.location.pathname.replace('oracle.html', '')}success.html?trio=${trio}`
-      );
-
-      // Stripe payment link — append success redirect if supported
-      // Standard Stripe Payment Links don't support custom success URLs via param
-      // so we just navigate to Stripe and handle success separately
-      window.location.href = STRIPE_URL;
     };
 
     // ── Email submit ──
@@ -887,9 +803,9 @@
         return;
       }
 
-      const trio = state.current.map(i =>
+      const trioParam = state.current.map(i =>
         i !== null ? `img${String(i + 1).padStart(2, '0')}` : ''
-      ).join(', ');
+      ).join(',');
 
       // Submit to MailerLite via their embed endpoint
       const form = document.createElement('form');
@@ -917,9 +833,7 @@
       form.submit();
       document.body.removeChild(form);
 
-      // Show success
-      document.getElementById('emailForm').style.display    = 'none';
-      document.getElementById('emailSuccess').style.display = 'block';
+      window.location.href = `oracle-result.html?trio=${trioParam}`;
     };
 
   })();

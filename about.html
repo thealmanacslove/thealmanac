@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — The Almanac</title>
+  <meta name="description" content="The Almanac is a vast living field of wisdom — a library of tones, light and mouvement. Discover the art and story of Elisa, cosmic dancer and creator of Lightcodes, based in Brussels, Belgium.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #F9F8F6;
+      --nav-bg:    #F5EEE9;
+      --pink:      #EDD8CF;
+      --border:    #E2D8D2;
+      --ink:       #2A2825;
+      --muted:     #9E8880;
+      --body-text: #7A6E6A;
+      --klein:     #002FA7;
+      --font:      'Jost', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font);
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
+    a:hover { color: var(--klein); }
+
+    /* ─── NAV ─── */
+    nav {
+      background-color: var(--nav-bg);
+      border-bottom: 0.5px solid var(--border);
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-size: 12px;
+      font-weight: 200;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover { color: var(--klein); }
+
+    .nav-instagram {
+      display: flex;
+      align-items: center;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .nav-instagram:hover { color: var(--klein); }
+
+    .nav-instagram svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ─── LAYOUT ─── */
+    .about-wrapper {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 88px 48px 120px;
+      display: flex;
+      gap: 80px;
+      align-items: stretch;
+    }
+
+    /* ─── IMAGE COLUMN ─── */
+    .about-image-col {
+      flex: 0 0 32%;
+    }
+
+    .about-image-sticky {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .about-photo {
+      width: 100%;
+      max-height: 30vh;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* ─── TEXT COLUMN ─── */
+    .about-text-col {
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ─── PAGE HEADER ─── */
+    .about-header {
+      margin-bottom: 72px;
+    }
+
+    .page-eyebrow {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 200;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .page-location {
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ─── SECTIONS ─── */
+    .about-section {
+      margin-bottom: 72px;
+    }
+
+    .about-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-eyebrow {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+
+    .about-section p {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--body-text);
+      line-height: 2;
+      letter-spacing: 0.02em;
+    }
+
+    .about-section p + p {
+      margin-top: 22px;
+    }
+
+    /* ─── DEFINITION ─── */
+    .definition {
+      margin-top: 28px;
+      padding-top: 22px;
+      padding-left: 24px;
+      border-top: 0.5px solid var(--border);
+      font-size: 12px;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.9;
+      letter-spacing: 0.02em;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 32px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-top: 0.5px solid var(--border);
+    }
+
+    .footer-logo {
+      font-size: 11px;
+      font-weight: 200;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+
+    .footer-links a {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .footer-links a:hover { color: var(--klein); }
+
+    :focus-visible { outline: 2px solid var(--klein); outline-offset: 3px; }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 760px) {
+      .about-wrapper {
+        flex-direction: column;
+        padding: 48px 24px 80px;
+        gap: 48px;
+      }
+
+      .about-image-col {
+        flex: none;
+        width: 60%;
+        max-width: 260px;
+      }
+
+      .about-image-sticky {
+        position: static;
+        height: auto;
+      }
+
+      .about-header {
+        margin-bottom: 52px;
+      }
+
+      .about-section {
+        margin-bottom: 52px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="The Almanac — home">The Almanac</a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="collections.html">Collections</a></li>
+      <li><a href="studio.html">Studio</a></li>
+      <li><a href="oracle.html">Oracle</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li>
+        <a href="https://www.instagram.com/thealmanac.love/"
+           target="_blank" rel="noopener noreferrer"
+           class="nav-instagram" aria-label="The Almanac on Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+    <article class="about-wrapper">
+
+      <!-- Portrait -->
+      <aside class="about-image-col">
+        <div class="about-image-sticky">
+          <img src="abouthero.jpg" alt="Elisa — The Almanac" class="about-photo">
+        </div>
+      </aside>
+
+      <!-- Text -->
+      <div class="about-text-col">
+
+
+        <section class="about-section" aria-labelledby="section-almanac">
+          <h2 class="section-eyebrow" id="section-almanac">About</h2>
+          <p>The Almanac is a vast living field of wisdom. She is a library of tones, light and mouvement holding the keys to codes long forgotten. A guide for the souls on the path of remembering — helping them to the memory of what is truly, home.</p>
+          <p>Through colours, shapes and codes from beyond the veil, the Almanac invites the witness to experience the mouvement her art creates. To remind oneself of the dance of life.</p>
+        </section>
+
+        <section class="about-section" aria-labelledby="section-meeting">
+          <h2 class="section-eyebrow" id="section-meeting">The Meeting</h2>
+          <p>The Almanac came to Elisa on a morning in July 2022. On that day she presented herself with a memory. The memory of the vastness of Life.</p>
+          <p>From there, a series of events unfolded that led to the discovery of the frequencies of light — guiding her body's intuitive mouvements.</p>
+          <p>Before devoting herself to her art, Elisa experienced the journey of conforming to expectations. Through her education and career she followed the path of what made sense to the mind. Until the day she had veered so far from the desires of her heart that everything in her reality conspired to bring her back — to a point where she had no choice but to follow it. And so she began creating the art guided by the Almanac.</p>
+        </section>
+
+        <section class="about-section" aria-labelledby="section-art">
+          <h2 class="section-eyebrow" id="section-art">The Art</h2>
+          <p>Each piece is created completely intuitively. Medium, colour, form — spontaneously chosen as Elisa is guided by the energy of the Almanac. Like a dance on paper, following the music of each piece's soul.</p>
+          <p>Just like a traditional almanac /ˈɔːl.mə.næk/ each creation is a reference guide for the souls seeking guidance as they navigate the subtle realms of incarnation. Each shape, colour and mouvement holding a specific frequency that bypasses the mind's comprehension to resonate with the body's innate intelligence.</p>
+          <p>Intertwined within the pieces, Lightcodes emerge — a secret language between Elisa and the Almanac's vast field of consciousness.</p>
+          <div class="definition" role="note">almanac /ˈɔːl.mə.næk/ — an annual publication containing a calendar, weather forecasts, astronomical data, tide tables, and other tabular information. Traditionally tailored for farmers, sailors, and astronomers — a comprehensive reference guide for the year ahead.</div>
+        </section>
+
+      </div>
+    </article>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">thealmanac.love</span>
+    <ul class="footer-links">
+      <li><a href="https://www.instagram.com/thealmanac.love/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+      <li><a href="mailto:thealmanac.elisa@gmail.com">Email</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>
