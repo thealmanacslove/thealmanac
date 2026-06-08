@@ -48,11 +48,27 @@ nav {
 }
 
 .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-img {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+.nav-logo-text {
   font-size: 12px;
   font-weight: 200;
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .nav-logo-text { display: none; }
 }
 
 .nav-links {
