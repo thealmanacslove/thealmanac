@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Collections — The Almanac</title>
+  <meta name="description" content="Explore the collections of The Almanac — Cities in the Sky, Welcome to Aurora, Devotion, and The Oracle. Original paintings by Elisa Della Faille.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Collections — The Almanac">
+  <meta property="og:description" content="Explore the collections of The Almanac — Cities in the Sky, Welcome to Aurora, Devotion, and The Oracle. Original paintings by Elisa Della Faille.">
+  <meta property="og:image" content="https://thealmanacslove.github.io/thealmanac/img/hero1-big.webp">
+  <meta property="og:url" content="https://thealmanacslove.github.io/thealmanac/collections.html">
+  <meta property="og:type" content="website">
+
+  <link rel="canonical" href="https://thealmanacslove.github.io/thealmanac/collections.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="img/almanaclogo.svg" type="image/svg+xml">
+
+  <style>
+    /* ─── VIDEO HERO ─── */
+    .collections-hero {
+      width: 100%;
+      max-height: 60vh;
+      overflow: hidden;
+      line-height: 0;
+    }
+
+    .collections-hero video {
+      width: 100%;
+      max-height: 60vh;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    /* ─── SECTION ─── */
+    .collections-section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 28px 80px;
+    }
+
+    .collections-section > .page-eyebrow {
+      margin-bottom: 32px;
+    }
+
+    /* ─── GRID ─── */
+    .collections-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* ─── CARD ─── */
+    .collection-card {
+      cursor: pointer;
+    }
+
+    .card-img-wrap {
+      aspect-ratio: 3 / 4;
+      position: relative;
+      overflow: hidden;
+      border: 0.5px solid transparent;
+      transition: border-color 0.3s ease;
+    }
+
+    .collection-card:hover .card-img-wrap {
+      border-color: var(--border);
+    }
+
+    .card-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .card-hover-img {
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+
+    @media (hover: hover) {
+      .collection-card:hover .card-hover-img { opacity: 1; }
+    }
+
+    .card-name {
+      font-size: 14px;
+      font-weight: 200;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    /* ─── EXPANDED PANEL ─── */
+    .collection-panel {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      transition: grid-template-rows 0.5s ease, opacity 0.5s ease;
+    }
+
+    .collection-panel.open {
+      grid-template-rows: 1fr;
+      opacity: 1;
+    }
+
+    .panel-inner {
+      min-height: 0;
+      overflow: hidden;
+      background: #D9BFB4;
+    }
+
+    .panel-content {
+      padding: 48px 28px;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+    }
+
+    .panel-title {
+      font-size: 22px;
+      font-weight: 200;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+    }
+
+    .panel-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      color: var(--ink);
+      transition: color 0.2s ease;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .panel-close:hover { color: var(--klein); }
+
+    .panel-close svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ─── SCROLL STRIP ─── */
+    .panel-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      margin: 0 -28px;
+      padding: 0 28px 16px;
+    }
+
+    .panel-scroll::-webkit-scrollbar { display: none; }
+
+    .panel-img-wrap {
+      flex: 0 0 auto;
+      height: 320px;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      scroll-snap-align: start;
+    }
+
+    .panel-img-wrap svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* ─── INQUIRE ─── */
+    .panel-inquire {
+      border-top: 0.5px solid rgba(42, 40, 37, 0.15);
+      padding-top: 32px;
+      margin-top: 32px;
+    }
+
+    .panel-inquire-eyebrow {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .panel-inquire-sub {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--body-text);
+      letter-spacing: 0.04em;
+      margin-bottom: 28px;
+    }
+
+    .panel-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 480px;
+    }
+
+    .panel-form input,
+    .panel-form textarea {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: 0;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+      padding: 14px 16px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s ease;
+      resize: vertical;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .panel-form input::placeholder,
+    .panel-form textarea::placeholder {
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    .panel-form input:focus,
+    .panel-form textarea:focus { border-color: var(--ink); }
+
+    .panel-submit {
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      padding: 16px;
+      background: var(--klein);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s ease;
+    }
+
+    .panel-submit:hover:not(:disabled) { background: var(--ink); }
+
+    .panel-submit:disabled {
+      background: var(--border);
+      color: var(--muted);
+      cursor: not-allowed;
+    }
+
+    .panel-success {
+      display: none;
+      font-size: 14px;
+      font-weight: 200;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    /* ─── MOBILE CROSSFADE ─── */
+    @media (hover: none) {
+      .card-hover-img {
+        animation: crossfade 6s infinite;
+      }
+    }
+
+    @keyframes crossfade {
+      0%, 40% { opacity: 0; }
+      50%, 90% { opacity: 1; }
+      100%     { opacity: 0; }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      .collections-grid { grid-template-columns: repeat(2, 1fr); }
+      .panel-img-wrap   { height: 240px; }
+    }
+
+    @media (max-width: 400px) {
+      .collections-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="The Almanac — home">
+      <img src="img/almanaclogo.svg" alt="The Almanac" class="nav-logo-img">
+      <span class="nav-logo-text">The Almanac</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="collections.html">Collections</a></li>
+      <li><a href="studio.html">Studio</a></li>
+      <li><a href="oracle.html">Oracle</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li>
+        <a href="https://www.instagram.com/thealmanac.love/"
+           target="_blank" rel="noopener noreferrer"
+           class="nav-instagram" aria-label="The Almanac on Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- HERO VIDEO -->
+  <div class="collections-hero">
+    <video autoplay muted loop playsinline>
+      <source src="img/thealmanac.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <!-- COLLECTIONS -->
+  <section class="collections-section" aria-label="Collections">
+    <p class="page-eyebrow">Collections</p>
+    <div class="collections-grid" id="collectionsGrid">
+
+      <!-- Cities in the Sky -->
+      <div class="collection-card" data-id="cities" data-collection="Cities in the Sky"
+           role="button" tabindex="0" aria-label="Open Cities in the Sky collection">
+        <div class="card-img-wrap">
+          <svg class="card-img card-main-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
+               role="img" aria-label="Cities in the Sky — main">
+            <rect width="300" height="400" fill="#EDD8CF"/>
+            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">Cities in the Sky</text>
+            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">main</text>
+          </svg>
+          <svg class="card-img card-hover-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
+               role="img" aria-label="Cities in the Sky — detail" aria-hidden="true">
+            <rect width="300" height="400" fill="#D9BFB4"/>
+            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">Cities in the Sky</text>
+            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">detail</text>
+          </svg>
+        </div>
+        <p class="card-name">Cities in the Sky</p>
+      </div>
+
+      <!-- Welcome to Aurora -->
+      <div class="collection-card" data-id="aurora" data-collection="Welcome to Aurora"
+           role="button" tabindex="0" aria-label="Open Welcome to Aurora collection">
+        <div class="card-img-wrap">
+          <svg class="card-img card-main-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
+               role="img" aria-label="Welcome to Aurora — main">
+            <rect width="300" height="400" fill="#EDD8CF"/>
+            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">Welcome to Aurora</text>
+            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">main</text>
+          </svg>
+          <svg class="card-img card-hover-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
+               role="img" aria-label="Welcome to Aurora — detail" aria-hidden="true">
+            <rect width="300" height="400" fill="#D9BFB4"/>
+            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">Welcome to Aurora</text>
+            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">detail</text>
+          </svg>
+        </div>
+        <p class="card-name">Welcome to Aurora</p>
+      </div>
+
+      <!-- Devotion -->
+      <div class="collection-card" data-id="devotion" data-collection="Devotion"
+           role="button" tabindex="0" aria-label="Open Devotion collection">
+        <div class="card-img-wrap">
+          <svg class="card-img card-main-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
+               role="img" aria-label="Devotion — main">
+            <rect width="300" height="400" fill="#EDD8CF"/>
+            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">Devotion</text>
+            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">main</text>
+          </svg>
+          <svg class="card-img card-hover-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
+               role="img" aria-label="Devotion — detail" aria-hidden="true">
+            <rect width="300" height="400" fill="#D9BFB4"/>
+            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">Devotion</text>
+            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">detail</text>
+          </svg>
+        </div>
+        <p class="card-name">Devotion</p>
+      </div>
+
+      <!-- The Oracle -->
+      <div class="collection-card" data-id="oracle-col" data-collection="The Oracle"
+           role="button" tabindex="0" aria-label="Open The Oracle collection">
+        <div class="card-img-wrap">
+          <svg class="card-img card-main-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
+               role="img" aria-label="The Oracle — main">
+            <rect width="300" height="400" fill="#EDD8CF"/>
+            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">The Oracle</text>
+            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">main</text>
+          </svg>
+          <svg class="card-img card-hover-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
+               role="img" aria-label="The Oracle — detail" aria-hidden="true">
+            <rect width="300" height="400" fill="#D9BFB4"/>
+            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">The Oracle</text>
+            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">detail</text>
+          </svg>
+        </div>
+        <p class="card-name">The Oracle</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">thealmanac.love</span>
+    <p class="footer-copyright">© 2025–present Elisa Della Faille · The Almanac</p>
+    <ul class="footer-links">
+      <li><a href="legal.html">Legal Mentions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="https://www.instagram.com/thealmanac.love/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+      <li><a href="mailto:thealmanac.elisa@gmail.com">Email</a></li>
+    </ul>
+  </footer>
+
+  <script src="main.js" defer></script>
+  <script>
+  (function () {
+    const grid  = document.getElementById('collectionsGrid');
+    const cards = Array.from(grid.querySelectorAll('.collection-card'));
+    let activePanel = null;
+    let activeCard  = null;
+    let openingNow  = false;
+
+    // ── Escape closes panel ──
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closePanel();
+    });
+
+    // ── Click outside closes panel ──
+    document.addEventListener('click', e => {
+      if (openingNow)  return;
+      if (!activePanel) return;
+      if (activePanel.contains(e.target)) return;
+      closePanel();
+    });
+
+    // ── Card interactions ──
+    cards.forEach(card => {
+      const hoverImg = card.querySelector('.card-hover-img');
+      let touchStartX = 0;
+      let wasSwipe    = false;
+
+      // Mobile: swipe left/right to switch images
+      card.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+        wasSwipe = false;
+      }, { passive: true });
+
+      card.addEventListener('touchend', e => {
+        const diff = touchStartX - e.changedTouches[0].screenX;
+        if (Math.abs(diff) > 40) {
+          wasSwipe = true;
+          hoverImg.style.animation = 'none';
+          hoverImg.style.opacity   = diff > 0 ? '1' : '0';
+        }
+      }, { passive: true });
+
+      // Click to open/close panel
+      card.addEventListener('click', () => {
+        if (wasSwipe) { wasSwipe = false; return; }
+        if (activeCard === card) { closePanel(); return; }
+        openPanel(card);
+      });
+
+      // Keyboard
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (activeCard === card) { closePanel(); return; }
+          openPanel(card);
+        }
+      });
+    });
+
+    // ── Open panel ──
+    function openPanel(card) {
+      openingNow = true;
+      setTimeout(() => { openingNow = false; }, 0);
+
+      if (activePanel) { activePanel.remove(); activePanel = null; }
+
+      activeCard = card;
+
+      // Find last card in the same grid row by comparing top positions
+      const cardTop  = card.getBoundingClientRect().top;
+      const rowCards = cards.filter(c => Math.abs(c.getBoundingClientRect().top - cardTop) < 5);
+      const last     = rowCards[rowCards.length - 1];
+
+      const panel = buildPanel(card.dataset.collection);
+      last.insertAdjacentElement('afterend', panel);
+      activePanel = panel;
+
+      // Double rAF ensures grid has re-laid before the class triggers transition
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        panel.classList.add('open');
+      }));
+
+      setTimeout(() => {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 120);
+    }
+
+    // ── Close panel ──
+    function closePanel() {
+      if (!activePanel) return;
+      const panel = activePanel;
+      activePanel = null;
+      activeCard  = null;
+      panel.classList.remove('open');
+      setTimeout(() => { if (panel.parentNode) panel.remove(); }, 520);
+    }
+
+    // ── Build panel ──
+    function buildPanel(name) {
+      const panel = document.createElement('div');
+      panel.className = 'collection-panel';
+      panel.setAttribute('role', 'region');
+      panel.setAttribute('aria-label', esc(name) + ' — collection detail');
+
+      const images = [1, 2, 3, 4].map(n =>
+        `<div class="panel-img-wrap">
+          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
+               role="img" aria-label="${esc(name)} — 0${n}">
+            <rect width="300" height="400" fill="#EDD8CF"/>
+            <text x="150" y="190" text-anchor="middle" fill="#9E8880" font-size="11"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">${esc(name)}</text>
+            <text x="150" y="210" text-anchor="middle" fill="#9E8880" font-size="10"
+                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">0${n}</text>
+          </svg>
+        </div>`
+      ).join('');
+
+      panel.innerHTML = `
+        <div class="panel-inner">
+          <div class="panel-content">
+            <div class="panel-header">
+              <p class="panel-title">${esc(name)}</p>
+              <button class="panel-close" aria-label="Close ${esc(name)} collection">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <polyline points="18 15 12 9 6 15"/>
+                </svg>
+              </button>
+            </div>
+            <div class="panel-scroll">${images}</div>
+            <div class="panel-inquire">
+              <p class="panel-inquire-eyebrow">Inquire about this collection</p>
+              <p class="panel-inquire-sub">Interested in a piece from this collection? Get in touch.</p>
+              <form class="panel-form" method="POST" action="https://api.web3forms.com/submit">
+                <input type="hidden" name="access_key" value="f516efd2-9aa2-4905-905f-8db6f4e9373d">
+                <input type="hidden" name="collection" value="${esc(name)}">
+                <input type="hidden" name="subject"    value="Collection inquiry — ${esc(name)}">
+                <input type="text"  name="name"    placeholder="Name"    required autocomplete="name">
+                <input type="email" name="email"   placeholder="Email"   required autocomplete="email">
+                <textarea           name="message" placeholder="Message" rows="4"  required></textarea>
+                <button type="submit" class="panel-submit">Send inquiry</button>
+              </form>
+              <p class="panel-success">Your message has been received. We'll be in touch.</p>
+            </div>
+          </div>
+        </div>`;
+
+      // Close button
+      panel.querySelector('.panel-close').addEventListener('click', e => {
+        e.stopPropagation();
+        closePanel();
+      });
+
+      // Form submit via fetch
+      panel.querySelector('.panel-form').addEventListener('submit', async e => {
+        e.preventDefault();
+        const form = e.target;
+        const btn  = form.querySelector('.panel-submit');
+        btn.disabled    = true;
+        btn.textContent = 'Sending…';
+        try {
+          const res  = await fetch('https://api.web3forms.com/submit', {
+            method: 'POST',
+            body: new FormData(form)
+          });
+          const json = await res.json();
+          if (json.success) {
+            form.style.display = 'none';
+            panel.querySelector('.panel-success').style.display = 'block';
+          } else {
+            btn.disabled    = false;
+            btn.textContent = 'Send inquiry';
+          }
+        } catch {
+          btn.disabled    = false;
+          btn.textContent = 'Send inquiry';
+        }
+      });
+
+      return panel;
+    }
+
+    // ── HTML escape ──
+    function esc(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // ── Close on resize (row positions change) ──
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(closePanel, 200);
+    });
+
+  })();
+  </script>
+
+</body>
+</html>

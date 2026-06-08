@@ -100,16 +100,19 @@
     }
 
     .about p {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 200;
-      line-height: 2;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.22em;
+      text-transform: lowercase;
       color: var(--ink);
-      max-width: 560px;
-      margin: 0 auto;
     }
 
-    .about p + p { margin-top: 4px; }
+    .about-logo {
+      height: 40px;
+      width: 40px;
+      display: block;
+      margin: 24px auto 0;
+    }
 
     /* ─── NEWSLETTER ─── */
     .newsletter {
@@ -258,7 +261,7 @@
 
   <!-- ABOUT -->
   <section class="about" aria-label="About The Almanac">
-    <p><i>def.</i> <b>almanac</b> /ˈɔːl.mə.næk/: creations made from mouvement, colors, lightcodes and other subtle frequencies and encryptions. Tailored for the sensitives, the psychics and the fine frequency connoisseurs. They act as a reminder for the souls on their way back home.</p>
+    <p>fine art for the frequency connoisseur</p>
   </section>
 
   <!-- NEWSLETTER -->
@@ -272,7 +275,10 @@
   <!-- FOOTER -->
   <footer>
     <span class="footer-logo">thealmanac.love</span>
+    <p class="footer-copyright">© 2025–present Elisa Della Faille · The Almanac</p>
     <ul class="footer-links">
+      <li><a href="legal.html">Legal Mentions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
       <li><a href="https://www.instagram.com/thealmanac.love/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
       <li><a href="mailto:thealmanac.elisa@gmail.com">Email</a></li>
     </ul>
@@ -337,8 +343,23 @@
         updateDots(current);
       }
 
-      function next() { goTo(current + 1); }
-      function prev() { goTo(current - 1); }
+      function next() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        pos++;
+        current = pos === total + 1 ? 0 : pos - 1;
+        setPos(pos, true);
+        updateDots(current);
+      }
+
+      function prev() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        pos--;
+        current = pos === 0 ? total - 1 : pos - 1;
+        setPos(pos, true);
+        updateDots(current);
+      }
 
       track.addEventListener('transitionend', () => {
         isTransitioning = false;
