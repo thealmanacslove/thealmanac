@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://thealmanacslove.github.io/thealmanac/sitemap.xml

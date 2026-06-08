@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Page not found — The Almanac</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    footer { border-top: none; }
+
+    .not-found {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 120px 28px;
+      text-align: center;
+    }
+
+    .not-found-title {
+      font-size: 26px;
+      font-weight: 200;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .not-found-sub {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--body-text);
+      line-height: 1.8;
+      letter-spacing: 0.04em;
+      margin-bottom: 40px;
+    }
+
+    .btn-home {
+      background: var(--ink);
+      color: #fff;
+      min-width: 220px;
+      justify-content: center;
+    }
+
+    .btn-home:hover { background: var(--klein); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="The Almanac — home">The Almanac</a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="collections.html">Collections</a></li>
+      <li><a href="studio.html">Studio</a></li>
+      <li><a href="oracle.html">Oracle</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li>
+        <a href="https://www.instagram.com/thealmanac.love/"
+           target="_blank" rel="noopener noreferrer"
+           class="nav-instagram" aria-label="The Almanac on Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="not-found">
+      <h1 class="not-found-title">Lost in the Almanac</h1>
+      <p class="not-found-sub">This page doesn't exist — or perhaps it hasn't materialised yet.</p>
+      <a class="btn btn-home" href="index.html">Return home</a>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">thealmanac.love</span>
+    <ul class="footer-links">
+      <li><a href="https://www.instagram.com/thealmanac.love/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+      <li><a href="mailto:thealmanac.elisa@gmail.com">Email</a></li>
+    </ul>
+  </footer>
+
+</body>
+</html>

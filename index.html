@@ -3,12 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <title>The Almanac</title>
   <meta name="description" content="The Almanac is a living body of work materialising unseen forces. A collection of dances on paper, on skin, in silence.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="The Almanac">
+  <meta property="og:description" content="The Almanac is a living body of work materialising unseen forces. A collection of dances on paper, on skin, in silence.">
+  <meta property="og:image" content="https://thealmanacslove.github.io/thealmanac/img/hero1-big.webp">
+  <meta property="og:url" content="https://thealmanacslove.github.io/thealmanac/">
+  <meta property="og:type" content="website">
+
+  <link rel="canonical" href="https://thealmanacslove.github.io/thealmanac/">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="preload" as="image" href="img/hero1.webp">
 
   <!-- MailerLite Universal -->
   <script>
@@ -20,90 +33,7 @@
   </script>
 
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg:        #F9F8F6;
-      --nav-bg:    #F5EEE9;
-      --pink:      #EDD8CF;
-      --border:    #E2D8D2;
-      --ink:       #2A2825;
-      --muted:     #9E8880;
-      --body-text: #7A6E6A;
-      --klein:     #002FA7;
-      --font:      'Jost', sans-serif;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background-color: var(--bg);
-      color: var(--ink);
-      font-family: var(--font);
-      font-weight: 300;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a { color: inherit; text-decoration: none; transition: color 0.2s ease; }
-    a:hover { color: var(--klein); }
-    img { display: block; width: 100%; }
-
-    /* ─── NAV ─── */
-    nav {
-      background-color: var(--nav-bg);
-      border-bottom: 0.5px solid var(--border);
-      padding: 24px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    .nav-logo {
-      font-size: 12px;
-      font-weight: 200;
-      letter-spacing: 0.32em;
-      text-transform: uppercase;
-      color: var(--ink);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 10px;
-      font-weight: 300;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .nav-links a:hover { color: var(--klein); }
-
-    .nav-instagram {
-      display: flex;
-      align-items: center;
-      color: var(--muted);
-      transition: color 0.2s ease;
-    }
-
-    .nav-instagram:hover { color: var(--klein); }
-
-    .nav-instagram svg {
-      width: 16px;
-      height: 16px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 1.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
+    footer { border-top: none; }
 
     /* ─── HERO SLIDER ─── */
     .hero-slider {
@@ -119,9 +49,7 @@
       will-change: transform;
     }
 
-    .hero-track.no-transition {
-      transition: none;
-    }
+    .hero-track.no-transition { transition: none; }
 
     .hero-slide {
       flex: 0 0 100%;
@@ -137,7 +65,6 @@
       display: block;
     }
 
-    /* Dots */
     .hero-dots {
       position: absolute;
       bottom: 20px;
@@ -267,51 +194,6 @@
       font-weight: 300 !important;
       color: var(--body-text) !important;
     }
-
-    /* ─── FOOTER ─── */
-    footer {
-      padding: 32px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-logo {
-      font-size: 11px;
-      font-weight: 200;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .footer-links { display: flex; gap: 24px; list-style: none; }
-
-    .footer-links a {
-      font-size: 10px;
-      font-weight: 300;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .footer-links a:hover { color: var(--klein); }
-
-    /* ─── ACCESSIBILITY ─── */
-    :focus-visible { outline: 2px solid var(--klein); outline-offset: 3px; }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0,0,0,0);
-      white-space: nowrap;
-      border: 0;
-    }
   </style>
 </head>
 
@@ -394,29 +276,26 @@
     </ul>
   </footer>
 
+  <script src="main.js" defer></script>
   <script>
     (function () {
       const slider  = document.getElementById('heroSlider');
       const track   = document.getElementById('heroTrack');
       const dotsContainer = document.querySelector('.hero-dots');
 
-      // ── Gather real slides & build infinite clone buffer ──
       const realSlides = Array.from(track.querySelectorAll('.hero-slide'));
       const total      = realSlides.length;
 
-      // Clone last slide → prepend, clone first slide → append
       const cloneLast  = realSlides[total - 1].cloneNode(true);
       const cloneFirst = realSlides[0].cloneNode(true);
       track.prepend(cloneLast);
       track.appendChild(cloneFirst);
 
-      // Position starts at index 1 (first real slide)
-      let pos     = 1; // 0 = clone-last, 1..total = real, total+1 = clone-first
-      let current = 0; // real index 0-based
+      let pos     = 1;
+      let current = 0;
       let autoTimer   = null;
       let isTransitioning = false;
 
-      // ── Build dots dynamically ──
       dotsContainer.innerHTML = '';
       realSlides.forEach((_, i) => {
         const btn = document.createElement('button');
@@ -442,13 +321,11 @@
         if (!animate) track.classList.add('no-transition');
         track.style.transform = `translateX(-${index * 100}%)`;
         if (!animate) {
-          // force reflow then re-enable transition
           track.getBoundingClientRect();
           track.classList.remove('no-transition');
         }
       }
 
-      // Jump to real slide by real index (0-based)
       function goTo(realIndex) {
         if (isTransitioning) return;
         current = ((realIndex % total) + total) % total;
@@ -461,51 +338,30 @@
       function next() { goTo(current + 1); }
       function prev() { goTo(current - 1); }
 
-      // ── After transition ends: handle infinite loop jump ──
       track.addEventListener('transitionend', () => {
         isTransitioning = false;
-        // If we landed on clone-first (pos = total+1), jump silently to real first
-        if (pos === total + 1) {
-          pos = 1;
-          setPos(pos, false);
-        }
-        // If we landed on clone-last (pos = 0), jump silently to real last
-        if (pos === 0) {
-          pos = total;
-          setPos(pos, false);
-        }
+        if (pos === total + 1) { pos = 1; setPos(pos, false); }
+        if (pos === 0)         { pos = total; setPos(pos, false); }
       });
 
-      // Initial position (no animation)
       setPos(pos, false);
 
-      // ── Auto-advance ──
-      function startAuto() {
-        stopAuto();
-        autoTimer = setInterval(next, 4500);
-      }
-      function stopAuto() { clearInterval(autoTimer); }
+      function startAuto() { stopAuto(); autoTimer = setInterval(next, 4500); }
+      function stopAuto()  { clearInterval(autoTimer); }
 
       slider.addEventListener('mouseenter', stopAuto);
       slider.addEventListener('mouseleave', startAuto);
 
-      // ── Touch swipe (mobile) ──
       let touchStartX = 0;
-      slider.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-        stopAuto();
-      }, { passive: true });
-
-      slider.addEventListener('touchend', e => {
+      slider.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; stopAuto(); }, { passive: true });
+      slider.addEventListener('touchend',   e => {
         const diff = touchStartX - e.changedTouches[0].screenX;
         if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
         startAuto();
       }, { passive: true });
 
-      // ── Trackpad / wheel swipe (desktop) ──
       let wheelLock = false;
       slider.addEventListener('wheel', e => {
-        // Only respond to horizontal scroll (trackpad swipe)
         if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) return;
         e.preventDefault();
         if (wheelLock) return;
@@ -515,14 +371,12 @@
         setTimeout(() => { wheelLock = false; }, 900);
       }, { passive: false });
 
-      // ── Keyboard ──
       slider.setAttribute('tabindex', '0');
       slider.addEventListener('keydown', e => {
         if (e.key === 'ArrowRight') { next(); startAuto(); }
         if (e.key === 'ArrowLeft')  { prev(); startAuto(); }
       });
 
-      // ── Snap position on resize (no transition flash) ──
       let resizeTimer;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
