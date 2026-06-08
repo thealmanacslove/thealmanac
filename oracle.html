@@ -612,7 +612,7 @@
 
     // Build pool: ['paintings/img01.png', ..., 'paintings/img48.png']
     const pool = Array.from({ length: TOTAL }, (_, i) =>
-      `roll/img${String(i + 1).padStart(2, '0')}.png`
+      `img/roll/img${String(i + 1).padStart(2, '0')}.png`
     );
 
     // State
@@ -625,7 +625,7 @@
 
     // Preload all images
     pool.forEach(src => { const img = new Image(); img.src = src; });
-    const _backImg = new Image(); _backImg.src = 'roll/backimg.webp';
+    const _backImg = new Image(); _backImg.src = 'img/roll/backimg.webp';
 
     // ── Build strips (each strip holds several img tags for scroll illusion) ──
     function buildStrips() {
@@ -633,7 +633,7 @@
         const strip = document.getElementById(`strip-${s}`);
         strip.innerHTML = '';
         const img = document.createElement('img');
-        img.src = 'roll/backimg.webp';
+        img.src = 'img/roll/backimg.webp';
         img.alt = '';
         img.draggable = false;
         strip.appendChild(img);

@@ -96,46 +96,40 @@
       stroke-linejoin: round;
     }
 
-    /* ─── LAYOUT ─── */
-    .about-wrapper {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 88px 48px 120px;
-      display: flex;
-      gap: 80px;
-      align-items: stretch;
-    }
-
-    /* ─── IMAGE COLUMN ─── */
-    .about-image-col {
-      flex: 0 0 32%;
-    }
-
-    .about-image-sticky {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-    }
-
-    .about-photo {
+    /* ─── HERO BAND ─── */
+    .hero-band {
       width: 100%;
-      max-height: 30vh;
+      height: 58vh;
+      overflow: hidden;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      object-position: center;
+      object-position: center 45%;
       display: block;
     }
 
-    /* ─── TEXT COLUMN ─── */
-    .about-text-col {
-      flex: 1;
-      min-width: 0;
+    .hero-placeholder {
+      width: 100%;
+      height: 100%;
+      background: var(--pink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 200;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
 
-    /* ─── PAGE HEADER ─── */
-    .about-header {
-      margin-bottom: 72px;
+    /* ─── CONTENT ─── */
+    .about-content {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 72px 28px 120px;
     }
 
     .page-eyebrow {
@@ -240,33 +234,6 @@
 
     :focus-visible { outline: 2px solid var(--klein); outline-offset: 3px; }
 
-    /* ─── MOBILE ─── */
-    @media (max-width: 760px) {
-      .about-wrapper {
-        flex-direction: column;
-        padding: 48px 24px 80px;
-        gap: 48px;
-      }
-
-      .about-image-col {
-        flex: none;
-        width: 60%;
-        max-width: 260px;
-      }
-
-      .about-image-sticky {
-        position: static;
-        height: auto;
-      }
-
-      .about-header {
-        margin-bottom: 52px;
-      }
-
-      .about-section {
-        margin-bottom: 52px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -294,43 +261,39 @@
     </ul>
   </nav>
 
+  <!-- HERO -->
+  <div class="hero-band">
+    <!-- To use real photo: replace the div below with <img src="img/elisa-portrait.jpg" alt="Elisa — The Almanac" class="hero-img"> -->
+    <div class="hero-placeholder" aria-label="Portrait of Elisa — placeholder">
+        <img src="img/abouthero.jpg" alt="Elisa — The Almanac" class="hero-img">
+    </div>
+  </div>
+
   <!-- MAIN -->
   <main>
-    <article class="about-wrapper">
+    <article class="about-content">
 
-      <!-- Portrait -->
-      <aside class="about-image-col">
-        <div class="about-image-sticky">
-          <img src="abouthero.jpg" alt="Elisa — The Almanac" class="about-photo">
-        </div>
-      </aside>
+      <section class="about-section" aria-labelledby="section-almanac">
+        <h2 class="section-eyebrow" id="section-almanac">About the Almanac</h2>
+        <p>The Almanac is a vast living field of wisdom. She is a library of tones, light and mouvement holding the keys to codes long forgotten. A guide for the souls on the path of remembering — helping them to the memory of what is truly, home.</p>
+        <p>Through colours, shapes and codes from beyond the veil, the Almanac invites the witness to experience the mouvement her art creates. To remind oneself of the dance of life.</p>
+      </section>
 
-      <!-- Text -->
-      <div class="about-text-col">
+      <section class="about-section" aria-labelledby="section-meeting">
+        <h2 class="section-eyebrow" id="section-meeting">The Meeting</h2>
+        <p>The Almanac came to Elisa on a morning in July 2022. On that day she presented herself with a memory. The memory of the vastness of Life.</p>
+        <p>From there, a series of events unfolded that led to the discovery of the frequencies of light — guiding her body's intuitive mouvements.</p>
+        <p>Before devoting herself to her art, Elisa experienced the journey of conforming to expectations. Through her education and career she followed the path of what made sense to the mind. Until the day she had veered so far from the desires of her heart that everything in her reality conspired to bring her back — to a point where she had no choice but to follow it. And so she began creating the art guided by the Almanac.</p>
+      </section>
 
+      <section class="about-section" aria-labelledby="section-art">
+        <h2 class="section-eyebrow" id="section-art">The Art</h2>
+        <p>Each piece is created completely intuitively. Medium, colour, form — spontaneously chosen as Elisa is guided by the energy of the Almanac. Like a dance on paper, following the music of each piece's soul.</p>
+        <p>Just like a traditional almanac /ˈɔːl.mə.næk/ each creation is a reference guide for the souls seeking guidance as they navigate the subtle realms of incarnation. Each shape, colour and mouvement holding a specific frequency that bypasses the mind's comprehension to resonate with the body's innate intelligence.</p>
+        <p>Intertwined within the pieces, Lightcodes emerge — a secret language between Elisa and the Almanac's vast field of consciousness.</p>
+        <div class="definition" role="note">almanac /ˈɔːl.mə.næk/ — an annual publication containing a calendar, weather forecasts, astronomical data, tide tables, and other tabular information. Traditionally tailored for farmers, sailors, and astronomers — a comprehensive reference guide for the year ahead.</div>
+      </section>
 
-        <section class="about-section" aria-labelledby="section-almanac">
-          <h2 class="section-eyebrow" id="section-almanac">About</h2>
-          <p>The Almanac is a vast living field of wisdom. She is a library of tones, light and mouvement holding the keys to codes long forgotten. A guide for the souls on the path of remembering — helping them to the memory of what is truly, home.</p>
-          <p>Through colours, shapes and codes from beyond the veil, the Almanac invites the witness to experience the mouvement her art creates. To remind oneself of the dance of life.</p>
-        </section>
-
-        <section class="about-section" aria-labelledby="section-meeting">
-          <h2 class="section-eyebrow" id="section-meeting">The Meeting</h2>
-          <p>The Almanac came to Elisa on a morning in July 2022. On that day she presented herself with a memory. The memory of the vastness of Life.</p>
-          <p>From there, a series of events unfolded that led to the discovery of the frequencies of light — guiding her body's intuitive mouvements.</p>
-          <p>Before devoting herself to her art, Elisa experienced the journey of conforming to expectations. Through her education and career she followed the path of what made sense to the mind. Until the day she had veered so far from the desires of her heart that everything in her reality conspired to bring her back — to a point where she had no choice but to follow it. And so she began creating the art guided by the Almanac.</p>
-        </section>
-
-        <section class="about-section" aria-labelledby="section-art">
-          <h2 class="section-eyebrow" id="section-art">The Art</h2>
-          <p>Each piece is created completely intuitively. Medium, colour, form — spontaneously chosen as Elisa is guided by the energy of the Almanac. Like a dance on paper, following the music of each piece's soul.</p>
-          <p>Just like a traditional almanac /ˈɔːl.mə.næk/ each creation is a reference guide for the souls seeking guidance as they navigate the subtle realms of incarnation. Each shape, colour and mouvement holding a specific frequency that bypasses the mind's comprehension to resonate with the body's innate intelligence.</p>
-          <p>Intertwined within the pieces, Lightcodes emerge — a secret language between Elisa and the Almanac's vast field of consciousness.</p>
-          <div class="definition" role="note">almanac /ˈɔːl.mə.næk/ — an annual publication containing a calendar, weather forecasts, astronomical data, tide tables, and other tabular information. Traditionally tailored for farmers, sailors, and astronomers — a comprehensive reference guide for the year ahead.</div>
-        </section>
-
-      </div>
     </article>
   </main>
 
