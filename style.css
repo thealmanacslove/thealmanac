@@ -223,13 +223,20 @@ footer {
   gap: 10px;
 }
 
+.btn-primary {
+  background: var(--klein);
+  color: #fff;
+}
+
+.btn-primary:hover { background: var(--ink); color: #fff; font-weight: 600; }
+
 .btn-roll {
   background: var(--ink);
   color: #fff;
   min-width: 220px;
 }
 
-.btn-roll:hover:not(:disabled) { background: var(--klein); }
+.btn-roll:hover:not(:disabled) { background: var(--klein); color: #fff; font-weight: 600; }
 
 .btn-roll:disabled {
   background: var(--border);
@@ -245,7 +252,7 @@ footer {
   font-size: 10px;
 }
 
-.btn-secondary:hover { color: var(--ink); border-color: var(--ink); }
+.btn-secondary:hover { background: var(--ink); color: #fff; font-weight: 600; border-color: var(--ink); }
 
 .btn-email {
   background: var(--pink);
@@ -261,7 +268,7 @@ footer {
   transition: background 0.2s ease;
 }
 
-.btn-email:hover { background: var(--ink); color: #fff; }
+.btn-email:hover { background: var(--ink); color: #fff; font-weight: 600; }
 
 /* ── TYPOGRAPHY UTILITIES ────────────────────── */
 .page-eyebrow {
