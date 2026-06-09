@@ -39,6 +39,24 @@
       line-height: 1.8;
       margin-top: 20px;
     }
+
+    .studio-instagram {
+      display: inline-block;
+      margin-top: 32px;
+      color: var(--klein);
+      transition: opacity 0.2s ease;
+    }
+
+    .studio-instagram:hover { opacity: 0.7; }
+
+    .studio-instagram svg {
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -75,6 +93,15 @@
       <p class="page-eyebrow">Studio</p>
       <h1 class="page-title">Behind the scenes.</h1>
       <p class="studio-body">Sketches, works in progress and quiet moments — coming soon.</p>
+      <a href="https://www.instagram.com/thealmanac.love/"
+         target="_blank" rel="noopener noreferrer"
+         class="studio-instagram" aria-label="The Almanac on Instagram">
+        <svg viewBox="0 0 24 24" aria-hidden="true" width="28" height="28">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
     </div>
   </main>
 
