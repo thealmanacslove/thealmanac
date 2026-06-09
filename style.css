@@ -49,6 +49,7 @@ nav {
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: top 0.3s ease;
 }
 
 .nav-logo {
@@ -71,10 +72,6 @@ nav {
   color: var(--ink);
 }
 
-@media (max-width: 640px) {
-  .nav-logo-text { display: none; }
-}
-
 .nav-links {
   display: flex;
   align-items: center;
@@ -91,6 +88,60 @@ nav {
 }
 
 .nav-links a:hover { color: var(--klein); }
+
+/* ── HAMBURGER ───────────────────────────────── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 101;
+}
+
+.ham-bar {
+  display: block;
+  width: 22px;
+  height: 1px;
+  background: var(--ink);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  transform-origin: center;
+}
+
+nav.nav-open .ham-bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+nav.nav-open .ham-bar:nth-child(2) { opacity: 0; }
+nav.nav-open .ham-bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Home link — mobile menu only */
+.nav-home { display: none; }
+
+@media (max-width: 640px) {
+  .nav-logo-text { display: none; }
+  .nav-hamburger { display: flex; }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-end;
+    background: var(--nav-bg);
+    border-bottom: 0.5px solid var(--border);
+    padding: 20px 28px 28px;
+    gap: 20px;
+  }
+
+  nav.nav-open .nav-links { display: flex; }
+
+  .nav-home { display: list-item; }
+
+  .nav-links a { font-size: 12px; }
+}
 
 .nav-instagram {
   display: flex;

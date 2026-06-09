@@ -97,8 +97,9 @@
     /* ─── HERO STICKY ─── */
     .hero-section-wrap {
       position: sticky;
-      top: 0;
+      top: var(--nav-h, 0px);
       z-index: 0;
+      transition: top 0.3s ease;
     }
 
     /* Content slides over the sticky hero */

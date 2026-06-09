@@ -28,8 +28,9 @@
     /* ─── VIDEO HERO ─── */
     .collections-hero {
       position: sticky;
-      top: 0;
+      top: var(--nav-h, 0px);
       z-index: 0;
+      transition: top 0.3s ease;
       width: 100%;
       max-height: 60vh;
       overflow: hidden;
