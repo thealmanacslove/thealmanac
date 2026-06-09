@@ -64,7 +64,7 @@
     /* ─── GRID ─── */
     .collections-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
       align-items: start;
     }
@@ -75,7 +75,7 @@
     }
 
     .card-img-wrap {
-      aspect-ratio: 3 / 4;
+      aspect-ratio: 3 / 2;
       position: relative;
       overflow: hidden;
       border: 0.5px solid transparent;
@@ -198,8 +198,16 @@
 
     .panel-img-wrap {
       height: 320px;
-      aspect-ratio: 3 / 4;
+      width: auto;
       overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .panel-img-wrap img {
+      height: 100%;
+      width: auto;
+      display: block;
+      cursor: zoom-in;
     }
 
     .panel-img-wrap svg {
@@ -312,6 +320,65 @@
       padding: 20px 0;
     }
 
+    /* ─── LIGHTBOX ─── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.78);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox-frame {
+      position: relative;
+      max-width: 90vw;
+      max-height: 88vh;
+    }
+
+    .lightbox-frame img {
+      max-width: 90vw;
+      max-height: 88vh;
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -13px;
+      right: -13px;
+      width: 26px;
+      height: 26px;
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font);
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--ink);
+      transition: background 0.2s ease, color 0.2s ease;
+      z-index: 201;
+      line-height: 1;
+    }
+
+    .lightbox-close:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
     /* ─── MOBILE CROSSFADE ─── */
     @media (hover: none) {
       .card-hover-img {
@@ -327,13 +394,12 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
-      .collections-grid { grid-template-columns: repeat(2, 1fr); }
+      .collections-grid { grid-template-columns: 1fr; }
       .panel-img-wrap   { height: 240px; }
     }
 
     @media (max-width: 400px) {
-      .collections-grid { grid-template-columns: 1fr; }
-      .panel-img-wrap   { height: 200px; }
+      .panel-img-wrap { height: 200px; }
     }
   </style>
 </head>
@@ -420,6 +486,14 @@
     </div>
   </section>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <div class="lightbox-frame" id="lightboxFrame">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Close image">&#x2715;</button>
+      <img id="lightboxImg" src="" alt="">
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <footer>
     <span class="footer-logo">thealmanac.love</span>
@@ -438,28 +512,30 @@
     // ── Painting data — update size and medium for each piece ──
     const PAINTINGS = {
       'Cities in the Sky': [
-        { label: '01', size: '00 × 00 cm', medium: 'Medium' },
-        { label: '02', size: '00 × 00 cm', medium: 'Medium' },
-        { label: '03', size: '00 × 00 cm', medium: 'Medium' },
-        { label: '04', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Cities in the Sky 01', src: 'img/citiesinthesky1.png', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Cities in the Sky 02', src: 'img/citiesinthesky2.png', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Cities in the Sky 03', src: 'img/citiesinthesky3.png', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Cities in the Sky 04', src: 'img/citiesinthesky4.png', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Cities in the Sky 05', src: 'img/citiesinthesky5.png', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Cities in the Sky 06', src: 'img/citiesinthesky6.png', size: '00 × 00 cm', medium: 'Medium' },
       ],
       'Welcome to Aurora': [
-        { label: '01', size: '00 × 00 cm', medium: 'Medium' },
-        { label: '02', size: '00 × 00 cm', medium: 'Medium' },
-        { label: '03', size: '00 × 00 cm', medium: 'Medium' },
-        { label: '04', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Welcome to Aurora 01', src: 'img/welcometoaurora1.png', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Welcome to Aurora 02', src: 'img/welcometoaurora2.png', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Welcome to Aurora 03', src: 'img/welcometoaurora3.png', size: '00 × 00 cm', medium: 'Medium' },
       ],
       'Devotion': [
-        { label: '01', size: '00 × 00 cm', medium: 'Medium' },
-        { label: '02', size: '00 × 00 cm', medium: 'Medium' },
-        { label: '03', size: '00 × 00 cm', medium: 'Medium' },
-        { label: '04', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Devotion 01', src: 'img/devotion1.png', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Devotion 02', src: 'img/devotion2.png', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Devotion 03', src: 'img/devotion3.png', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Devotion 04', src: 'img/devotion4.png', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Devotion 05', src: 'img/devotion5.png', size: '00 × 00 cm', medium: 'Medium' },
       ],
       'The Oracle': [
-        { label: '01', size: '00 × 00 cm', medium: 'Medium' },
-        { label: '02', size: '00 × 00 cm', medium: 'Medium' },
-        { label: '03', size: '00 × 00 cm', medium: 'Medium' },
-        { label: '04', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'The Oracle 01', src: 'img/theoracle1.png', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'The Oracle 02', src: 'img/theoracle2.png', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'The Oracle 03', src: 'img/theoracle3.png', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'The Oracle 04', src: 'img/theoracle4.png', size: '00 × 00 cm', medium: 'Medium' },
       ],
     };
 
@@ -469,15 +545,48 @@
     let activeCard  = null;
     let openingNow  = false;
 
-    // ── Escape closes panel ──
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closePanel();
+    // ── Lightbox ──
+    const lightbox      = document.getElementById('lightbox');
+    const lightboxFrame = document.getElementById('lightboxFrame');
+    const lightboxImg   = document.getElementById('lightboxImg');
+
+    function openLightbox(src, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('lightboxClose').addEventListener('click', e => {
+      e.stopPropagation();
+      closeLightbox();
     });
 
-    // ── Click outside closes panel ──
+    lightbox.addEventListener('click', e => {
+      if (!lightboxFrame.contains(e.target)) {
+        e.stopPropagation();
+        closeLightbox();
+      }
+    });
+
+    // ── Escape closes panel or lightbox ──
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        if (lightbox.classList.contains('open')) { closeLightbox(); return; }
+        closePanel();
+      }
+    });
+
+    // ── Click outside closes panel (not when lightbox is open) ──
     document.addEventListener('click', e => {
       if (openingNow)  return;
       if (!activePanel) return;
+      if (lightbox.classList.contains('open')) return;
       if (activePanel.contains(e.target)) return;
       closePanel();
     });
@@ -566,22 +675,23 @@
       panel.setAttribute('aria-label', esc(name) + ' — collection detail');
 
       const paintings = PAINTINGS[name] || [];
-      const images = paintings.map(p =>
-        `<div class="panel-item">
-          <div class="panel-img-wrap">
-            <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
+      const images = paintings.map(p => {
+        const visual = p.src
+          ? `<img src="${esc(p.src)}" alt="${esc(p.label)}">`
+          : `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg"
                  role="img" aria-label="${esc(name)} — ${esc(p.label)}">
-              <rect width="300" height="400" fill="#EDD8CF"/>
-              <text x="150" y="190" text-anchor="middle" fill="#9E8880" font-size="11"
+              <rect width="300" height="200" fill="#EDD8CF"/>
+              <text x="150" y="95" text-anchor="middle" fill="#9E8880" font-size="11"
                     font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">${esc(name)}</text>
-              <text x="150" y="210" text-anchor="middle" fill="#9E8880" font-size="10"
+              <text x="150" y="115" text-anchor="middle" fill="#9E8880" font-size="10"
                     font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">${esc(p.label)}</text>
-            </svg>
-          </div>
+            </svg>`;
+        return `<div class="panel-item">
+          <div class="panel-img-wrap">${visual}</div>
           <p class="panel-item-size">${esc(p.size)}</p>
           <p class="panel-item-medium">${esc(p.medium)}</p>
-        </div>`
-      ).join('');
+        </div>`;
+      }).join('');
 
       panel.innerHTML = `
         <div class="panel-inner">
@@ -616,6 +726,14 @@
       panel.querySelector('.panel-close').addEventListener('click', e => {
         e.stopPropagation();
         closePanel();
+      });
+
+      // Lightbox on panel images
+      panel.querySelectorAll('.panel-img-wrap img').forEach(img => {
+        img.addEventListener('click', e => {
+          e.stopPropagation();
+          openLightbox(img.src, img.alt);
+        });
       });
 
       // Form submit via fetch
