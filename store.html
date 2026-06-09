@@ -20,7 +20,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="img/almanaclogo.svg" type="image/svg+xml">
 
@@ -97,7 +97,7 @@
       transition: background-color 0.2s ease !important;
     }
 
-    .ml-form-embedSubmit button.primary:hover { background-color: var(--ink) !important; }
+    .ml-form-embedSubmit button.primary:hover { background-color: var(--ink) !important; color: #fff !important; font-weight: 600 !important; }
 
     .ml-form-successContent h4 {
       font-family: var(--font) !important;
@@ -181,7 +181,7 @@
       transition: background 0.2s ease;
     }
 
-    .inquire-submit:hover:not(:disabled) { background: var(--ink); }
+    .inquire-submit:hover:not(:disabled) { background: var(--ink); color: #fff; font-weight: 600; }
 
     .inquire-submit:disabled {
       background: var(--border);
@@ -238,7 +238,7 @@
 
       <hr class="store-divider">
 
-      <p class="store-inquire-label">or inquire for custom orders or available art</p>
+      <p class="store-inquire-label">or inquire for custom orders and available art</p>
 
       <form class="inquire-form" id="inquireForm" method="POST" action="https://api.web3forms.com/submit">
         <input type="hidden" name="access_key" value="f516efd2-9aa2-4905-905f-8db6f4e9373d">

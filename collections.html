@@ -20,7 +20,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="img/almanaclogo.svg" type="image/svg+xml">
 
@@ -303,7 +303,7 @@
       transition: background 0.2s ease;
     }
 
-    .panel-submit:hover:not(:disabled) { background: var(--ink); }
+    .panel-submit:hover:not(:disabled) { background: var(--ink); color: #fff; font-weight: 600; }
 
     .panel-submit:disabled {
       background: var(--border);
@@ -448,8 +448,8 @@
       <div class="collection-card" data-id="cities" data-collection="Cities in the Sky"
            role="button" tabindex="0" aria-label="Open Cities in the Sky collection">
         <div class="card-img-wrap">
-          <img class="card-img card-main-img" src="img/citiesintheskymain%20-%20Grande.jpeg" alt="Cities in the Sky — main painting by Elisa Della Faille">
-          <img class="card-img card-hover-img" src="img/citiesintheskydetail%20-%20Grande.jpeg" alt="Cities in the Sky — detail" aria-hidden="true">
+          <img class="card-img card-main-img" src="img/citiesintheskymain.webp" alt="Cities in the Sky — main painting by Elisa Della Faille">
+          <img class="card-img card-hover-img" src="img/citiesintheskydetail.webp" alt="Cities in the Sky — detail" aria-hidden="true">
         </div>
         <p class="card-name">Cities in the Sky</p>
       </div>
@@ -458,8 +458,8 @@
       <div class="collection-card" data-id="aurora" data-collection="Welcome to Aurora"
            role="button" tabindex="0" aria-label="Open Welcome to Aurora collection">
         <div class="card-img-wrap">
-          <img class="card-img card-main-img" src="img/welcometoauroramain%20-%20Grande.jpeg" alt="Welcome to Aurora — main painting by Elisa Della Faille">
-          <img class="card-img card-hover-img" src="img/welcometoauroradetail%20-%20Grande.jpeg" alt="Welcome to Aurora — detail" aria-hidden="true">
+          <img class="card-img card-main-img" src="img/welcometoauroramain.webp" alt="Welcome to Aurora — main painting by Elisa Della Faille">
+          <img class="card-img card-hover-img" src="img/welcometoauroradetail.webp" alt="Welcome to Aurora — detail" aria-hidden="true">
         </div>
         <p class="card-name">Welcome to Aurora</p>
       </div>
@@ -468,8 +468,8 @@
       <div class="collection-card" data-id="devotion" data-collection="Devotion"
            role="button" tabindex="0" aria-label="Open Devotion collection">
         <div class="card-img-wrap">
-          <img class="card-img card-main-img" src="img/devotionmain%20-%20Grande.jpeg" alt="Devotion — main painting by Elisa Della Faille">
-          <img class="card-img card-hover-img" src="img/devotiondetail%20-%20Grande.jpeg" alt="Devotion — detail" aria-hidden="true">
+          <img class="card-img card-main-img" src="img/devotionmain.webp" alt="Devotion — main painting by Elisa Della Faille">
+          <img class="card-img card-hover-img" src="img/devotiondetail.webp" alt="Devotion — detail" aria-hidden="true">
         </div>
         <p class="card-name">Devotion</p>
       </div>
@@ -478,8 +478,8 @@
       <div class="collection-card" data-id="oracle-col" data-collection="The Oracle"
            role="button" tabindex="0" aria-label="Open The Oracle collection">
         <div class="card-img-wrap">
-          <img class="card-img card-main-img" src="img/theoraclemain%20-%20Grande.jpeg" alt="The Oracle — main painting by Elisa Della Faille">
-          <img class="card-img card-hover-img" src="img/theoracledetail%20-%20Grande.jpeg" alt="The Oracle — detail" aria-hidden="true">
+          <img class="card-img card-main-img" src="img/theoraclemain.webp" alt="The Oracle — main painting by Elisa Della Faille">
+          <img class="card-img card-hover-img" src="img/theoracledetail.webp" alt="The Oracle — detail" aria-hidden="true">
         </div>
         <p class="card-name">The Oracle</p>
       </div>
@@ -513,30 +513,31 @@
     // ── Painting data — update size and medium for each piece ──
     const PAINTINGS = {
       'Cities in the Sky': [
-        { label: 'Cities in the Sky 01', src: 'img/citiesinthesky1%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Cities in the Sky 02', src: 'img/citiesinthesky2%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Cities in the Sky 03', src: 'img/citiesinthesky3%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Cities in the Sky 04', src: 'img/citiesinthesky4%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Cities in the Sky 05', src: 'img/citiesinthesky5%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Cities in the Sky 06', src: 'img/citiesinthesky6%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Cities in the Sky 01', src: 'img/citiesinthesky1.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Cities in the Sky 02', src: 'img/citiesinthesky2.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Cities in the Sky 03', src: 'img/citiesinthesky3.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Cities in the Sky 04', src: 'img/citiesinthesky4.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Cities in the Sky 05', src: 'img/citiesinthesky5.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Cities in the Sky 06', src: 'img/citiesinthesky6.webp', size: '00 × 00 cm', medium: 'Medium' },
       ],
       'Welcome to Aurora': [
-        { label: 'Welcome to Aurora 01', src: 'img/welcometoaurora1%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Welcome to Aurora 02', src: 'img/welcometoaurora2%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Welcome to Aurora 03', src: 'img/welcometoaurora3%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Welcome to Aurora 01', src: 'img/welcometoaurora1.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Welcome to Aurora 02', src: 'img/welcometoaurora2.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Welcome to Aurora 03', src: 'img/welcometoaurora3.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Welcome to Aurora 04', src: 'img/welcometoaurora4.webp', size: '00 × 00 cm', medium: 'Medium' },
       ],
       'Devotion': [
-        { label: 'Devotion 01', src: 'img/devotion1%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Devotion 02', src: 'img/devotion2%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Devotion 03', src: 'img/devotion3%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Devotion 04', src: 'img/devotion4%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Devotion 05', src: 'img/devotion5%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Devotion 01', src: 'img/devotion1.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Devotion 02', src: 'img/devotion2.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Devotion 03', src: 'img/devotion3.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Devotion 04', src: 'img/devotion4.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Devotion 05', src: 'img/devotion5.webp', size: '00 × 00 cm', medium: 'Medium' },
       ],
       'The Oracle': [
-        { label: 'The Oracle 01', src: 'img/theoracle1%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'The Oracle 02', src: 'img/theoracle2%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'The Oracle 03', src: 'img/theoracle3%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'The Oracle 04', src: 'img/theoracle4%20-%20Grande.jpeg', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'The Oracle 01', src: 'img/theoracle1.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'The Oracle 02', src: 'img/theoracle2.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'The Oracle 03', src: 'img/theoracle3.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'The Oracle 04', src: 'img/theoracle4.webp', size: '00 × 00 cm', medium: 'Medium' },
       ],
     };
 
