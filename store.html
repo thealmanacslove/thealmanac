@@ -62,7 +62,7 @@
 
     .ml-form-fieldRow input {
       background-color: var(--bg) !important;
-      border-color: var(--border) !important;
+      border: 0.5px solid var(--border) !important;
       border-radius: 0 !important;
       font-family: var(--font) !important;
       font-size: 13px !important;
@@ -74,13 +74,14 @@
 
     .ml-form-fieldRow input::placeholder {
       color: var(--muted) !important;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      letter-spacing: 0.1em !important;
+      text-transform: uppercase !important;
       font-size: 11px !important;
     }
 
     .ml-form-embedSubmit button.primary {
       background-color: var(--klein) !important;
+      color: #fff !important;
       border: none !important;
       border-radius: 0 !important;
       font-family: var(--font) !important;
@@ -89,6 +90,8 @@
       letter-spacing: 0.24em !important;
       text-transform: uppercase !important;
       padding: 16px !important;
+      width: 100% !important;
+      cursor: pointer !important;
       transition: background-color 0.2s ease !important;
     }
 
@@ -106,6 +109,92 @@
       font-family: var(--font) !important;
       font-weight: 300 !important;
       color: var(--body-text) !important;
+    }
+
+    /* ─── INQUIRE ─── */
+    .store-divider {
+      border: none;
+      border-top: 0.5px solid var(--border);
+      margin: 56px 0 48px;
+    }
+
+    .store-inquire-label {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+
+    .inquire-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      text-align: left;
+    }
+
+    .inquire-form input,
+    .inquire-form textarea {
+      background: var(--bg);
+      border: 0.5px solid var(--border);
+      border-radius: 0;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+      padding: 14px 16px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s ease;
+      resize: vertical;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .inquire-form input:focus,
+    .inquire-form textarea:focus { border-color: var(--ink); }
+
+    .inquire-form input::placeholder,
+    .inquire-form textarea::placeholder {
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    .inquire-submit {
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      padding: 16px;
+      background: var(--klein);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.2s ease;
+    }
+
+    .inquire-submit:hover:not(:disabled) { background: var(--ink); }
+
+    .inquire-submit:disabled {
+      background: var(--border);
+      color: var(--muted);
+      cursor: not-allowed;
+    }
+
+    .inquire-success {
+      display: none;
+      font-size: 14px;
+      font-weight: 200;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      text-align: center;
+      padding: 20px 0;
     }
   </style>
 </head>
@@ -144,8 +233,45 @@
       <h1 class="store-heading">Available works — coming soon.</h1>
       <p class="store-sub">Subscribe for first access to new releases.</p>
       <div class="ml-embedded" data-form="FB75Kf"></div>
+
+      <hr class="store-divider">
+
+      <p class="store-inquire-label">or inquire for custom orders or available art</p>
+
+      <form class="inquire-form" id="inquireForm" method="POST" action="https://api.web3forms.com/submit">
+        <input type="hidden" name="access_key" value="f516efd2-9aa2-4905-905f-8db6f4e9373d">
+        <input type="hidden" name="subject" value="Store inquiry — The Almanac">
+        <input type="text"  name="name"    placeholder="Name"    required autocomplete="name">
+        <input type="email" name="email"   placeholder="Email"   required autocomplete="email">
+        <textarea           name="message" placeholder="Message" rows="4"  required></textarea>
+        <button type="submit" class="inquire-submit" id="inquireBtn">Send inquiry</button>
+      </form>
+      <p class="inquire-success" id="inquireSuccess">Your message has been received. We'll be in touch.</p>
     </div>
   </main>
+
+  <script>
+    document.getElementById('inquireForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const btn = document.getElementById('inquireBtn');
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      try {
+        const res  = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(this) });
+        const json = await res.json();
+        if (json.success) {
+          this.style.display = 'none';
+          document.getElementById('inquireSuccess').style.display = 'block';
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Send inquiry';
+        }
+      } catch {
+        btn.disabled = false;
+        btn.textContent = 'Send inquiry';
+      }
+    });
+  </script>
 
   <!-- FOOTER -->
   <footer>
