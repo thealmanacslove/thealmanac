@@ -168,16 +168,25 @@
       margin-bottom: 4px;
     }
 
-    /* ─── EMAIL FORM ─── */
-    .email-form {
+    /* ─── ACTION PATHS ─── */
+    .action-sub {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--body-text);
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+
+    /* ─── STAY FORM ─── */
+    .stay-form {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
       width: 100%;
       max-width: 320px;
     }
 
-    .email-form input {
+    .stay-form input {
       background: var(--bg);
       border: 0.5px solid var(--border);
       border-radius: 0;
@@ -192,38 +201,73 @@
       transition: border-color 0.2s ease;
     }
 
-    .email-form input::placeholder {
+    .stay-form input:focus { border-color: var(--ink); }
+
+    .stay-form input::placeholder {
       color: var(--muted);
       letter-spacing: 0.1em;
       text-transform: uppercase;
       font-size: 11px;
     }
 
-    .email-form input:focus { border-color: var(--ink); }
+    .gdpr-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+    }
 
-    .inquire-line {
+    .gdpr-label input[type="checkbox"] {
+      margin-top: 3px;
+      flex-shrink: 0;
+      accent-color: #002FA7;
+      width: 14px;
+      height: 14px;
+    }
+
+    .gdpr-label span {
+      font-family: var(--font);
       font-size: 11px;
       font-weight: 300;
+      color: var(--body-text);
+      letter-spacing: 0.06em;
+      line-height: 1.7;
+    }
+
+    .gdpr-error {
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 300;
+      color: #B04040;
+      letter-spacing: 0.06em;
+    }
+
+    .btn-stay {
+      background: var(--klein);
+      color: #ffffff;
+      width: 100%;
+    }
+
+    .btn-stay:hover { background: var(--ink); }
+
+    .btn-skip {
+      background: transparent;
       color: var(--muted);
-      letter-spacing: 0.1em;
-      margin-top: 8px;
-    }
-
-    .inquire-line a {
-      color: var(--ink);
-      border-bottom: 0.5px solid var(--ink);
-      padding-bottom: 1px;
-    }
-
-    .email-success {
-      display: none;
-      font-size: 14px;
-      font-weight: 200;
-      letter-spacing: 0.08em;
-      color: var(--ink);
+      border: none;
+      font-family: var(--font);
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 8px;
+      cursor: pointer;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color 0.2s ease;
       text-align: center;
-      padding: 20px 0;
     }
+
+    .btn-skip:hover { color: var(--ink); }
   </style>
 </head>
 <body>
@@ -344,22 +388,23 @@
     <!-- ACTION PANEL -->
     <div class="action-panel" id="actionPanel">
 
-      <p class="action-title">Your trio is ready</p>
-      <p class="roll-info">to receive the digital version, please submit your email</p>
+      <p class="action-title">Your codes have been drawn.</p>
+      <p class="action-sub">Receive your digital version for free, courtesy of the Almanac.</p>
 
-      <div class="email-form" id="emailForm">
+      <div class="stay-form" id="stayForm">
+        <input type="text" id="nameInput" placeholder="Your name" autocomplete="given-name">
         <input type="email" id="emailInput" placeholder="Your email" autocomplete="email">
-        <button class="btn-email" onclick="submitEmail()">Receive by email</button>
-      </div>
 
-      <div class="email-success" id="emailSuccess">
-        ✦ &nbsp; Your trio has been saved. We'll be in touch.
-      </div>
+        <label class="gdpr-label">
+          <input type="checkbox" id="gdprConsent">
+          <span>I agree to receive emails from The Almanac. I can unsubscribe at any time.</span>
+        </label>
 
-      <p class="inquire-line">
-        Interested in the originals?
-        <a href="mailto:thealmanac.elisa@gmail.com">Inquire here</a>
-      </p>
+        <p class="gdpr-error" id="gdprError" style="display:none;">Please accept to continue.</p>
+
+        <button class="btn btn-stay" onclick="submitStay()">Stay close to the Almanac</button>
+        <button class="btn-skip" onclick="revealDirect()">Continue without email</button>
+      </div>
 
     </div>
 
@@ -515,32 +560,46 @@
       document.getElementById(`slot-${s}`).classList.toggle('locked', state.locked[s]);
     };
 
-    window.submitEmail = function () {
-      const email = document.getElementById('emailInput').value.trim();
-      if (!email || !email.includes('@')) { document.getElementById('emailInput').focus(); return; }
-
-      const trioParam = state.current.map(i =>
+    window.revealDirect = function () {
+      const trio = state.current.map(i =>
         i !== null ? `img${String(i + 1).padStart(2, '0')}` : ''
       ).join(',');
+      window.location.href = `oracle-result.html?trio=${trio}`;
+    };
 
-      const form = document.createElement('form');
-      form.action = `https://assets.mailerlite.com/jsonp/${MAILERLITE_ACCOUNT}/forms/180370302660773235/subscribe`;
-      form.method = 'POST';
-      form.target = '_blank';
-      form.style.display = 'none';
+    window.submitStay = async function () {
+      const name    = document.getElementById('nameInput').value.trim();
+      const email   = document.getElementById('emailInput').value.trim();
+      const consent = document.getElementById('gdprConsent').checked;
+      const errEl   = document.getElementById('gdprError');
 
-      const fields = { 'fields[email]': email, 'fields[name]': '', 'ml-submit': '1', 'anticsrf': 'true' };
-      Object.entries(fields).forEach(([k, v]) => {
-        const input = document.createElement('input');
-        input.type = 'hidden'; input.name = k; input.value = v;
-        form.appendChild(input);
-      });
+      if (!email || !email.includes('@')) {
+        errEl.textContent = 'Please enter a valid email.';
+        errEl.style.display = 'block';
+        return;
+      }
+      if (!consent) {
+        errEl.textContent = 'Please accept to continue.';
+        errEl.style.display = 'block';
+        return;
+      }
 
-      document.body.appendChild(form);
-      form.submit();
-      document.body.removeChild(form);
-
-      window.location.href = `oracle-result.html?trio=${trioParam}`;
+      const trio = state.current.map(i =>
+        i !== null ? `img${String(i + 1).padStart(2, '0')}` : ''
+      ).join(',');
+      const formData = new FormData();
+      formData.append('fields[email]', email);
+      formData.append('fields[name]', name);
+      formData.append('ml-submit', '1');
+      formData.append('anticsrf', 'true');
+      try {
+        await fetch('https://assets.mailerlite.com/jsonp/2088881/forms/180370302660773235/subscribe', {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors'
+        });
+      } catch (e) {}
+      window.location.href = `oracle-result.html?trio=${trio}`;
     };
 
   })();
