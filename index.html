@@ -92,6 +92,22 @@
       transform: scale(1.3);
     }
 
+    /* ─── HERO STICKY ─── */
+    .hero-section-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 0;
+    }
+
+    /* Content slides over the sticky hero */
+    .about,
+    .newsletter,
+    footer {
+      position: relative;
+      z-index: 1;
+      background: var(--bg);
+    }
+
     /* ─── ABOUT ─── */
     .about {
       padding: 80px 28px;
@@ -232,7 +248,7 @@
   </nav>
 
   <!-- HERO SLIDER -->
-  <section aria-label="Hero image slideshow" aria-roledescription="carousel">
+  <section class="hero-section-wrap" aria-label="Hero image slideshow" aria-roledescription="carousel">
     <div class="hero-slider" id="heroSlider">
       <div class="hero-track" id="heroTrack">
 
