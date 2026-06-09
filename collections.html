@@ -93,6 +93,7 @@
       width: 100%;
       height: 100%;
       display: block;
+      object-fit: cover;
     }
 
     .card-hover-img {
@@ -190,18 +191,31 @@
 
     .panel-scroll::-webkit-scrollbar { display: none; }
 
-    .panel-img-wrap {
+    .panel-item {
       flex: 0 0 auto;
+      scroll-snap-align: start;
+    }
+
+    .panel-img-wrap {
       height: 320px;
       aspect-ratio: 3 / 4;
       overflow: hidden;
-      scroll-snap-align: start;
     }
 
     .panel-img-wrap svg {
       width: 100%;
       height: 100%;
       display: block;
+    }
+
+    .panel-item-size,
+    .panel-item-medium {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-top: 6px;
+      text-transform: uppercase;
     }
 
     /* ─── INQUIRE ─── */
@@ -319,6 +333,7 @@
 
     @media (max-width: 400px) {
       .collections-grid { grid-template-columns: 1fr; }
+      .panel-img-wrap   { height: 200px; }
     }
   </style>
 </head>
@@ -366,22 +381,8 @@
       <div class="collection-card" data-id="cities" data-collection="Cities in the Sky"
            role="button" tabindex="0" aria-label="Open Cities in the Sky collection">
         <div class="card-img-wrap">
-          <svg class="card-img card-main-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
-               role="img" aria-label="Cities in the Sky — main">
-            <rect width="300" height="400" fill="#EDD8CF"/>
-            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">Cities in the Sky</text>
-            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">main</text>
-          </svg>
-          <svg class="card-img card-hover-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
-               role="img" aria-label="Cities in the Sky — detail" aria-hidden="true">
-            <rect width="300" height="400" fill="#D9BFB4"/>
-            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">Cities in the Sky</text>
-            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">detail</text>
-          </svg>
+          <img class="card-img card-main-img" src="img/citiesintheskymain.png" alt="Cities in the Sky — main painting by Elisa Della Faille">
+          <img class="card-img card-hover-img" src="img/citiesintheskydetail.png" alt="Cities in the Sky — detail" aria-hidden="true">
         </div>
         <p class="card-name">Cities in the Sky</p>
       </div>
@@ -390,22 +391,8 @@
       <div class="collection-card" data-id="aurora" data-collection="Welcome to Aurora"
            role="button" tabindex="0" aria-label="Open Welcome to Aurora collection">
         <div class="card-img-wrap">
-          <svg class="card-img card-main-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
-               role="img" aria-label="Welcome to Aurora — main">
-            <rect width="300" height="400" fill="#EDD8CF"/>
-            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">Welcome to Aurora</text>
-            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">main</text>
-          </svg>
-          <svg class="card-img card-hover-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
-               role="img" aria-label="Welcome to Aurora — detail" aria-hidden="true">
-            <rect width="300" height="400" fill="#D9BFB4"/>
-            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">Welcome to Aurora</text>
-            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">detail</text>
-          </svg>
+          <img class="card-img card-main-img" src="img/welcometoauroramain.png" alt="Welcome to Aurora — main painting by Elisa Della Faille">
+          <img class="card-img card-hover-img" src="img/welcometoauroradetail.png" alt="Welcome to Aurora — detail" aria-hidden="true">
         </div>
         <p class="card-name">Welcome to Aurora</p>
       </div>
@@ -414,22 +401,8 @@
       <div class="collection-card" data-id="devotion" data-collection="Devotion"
            role="button" tabindex="0" aria-label="Open Devotion collection">
         <div class="card-img-wrap">
-          <svg class="card-img card-main-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
-               role="img" aria-label="Devotion — main">
-            <rect width="300" height="400" fill="#EDD8CF"/>
-            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">Devotion</text>
-            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">main</text>
-          </svg>
-          <svg class="card-img card-hover-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
-               role="img" aria-label="Devotion — detail" aria-hidden="true">
-            <rect width="300" height="400" fill="#D9BFB4"/>
-            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">Devotion</text>
-            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">detail</text>
-          </svg>
+          <img class="card-img card-main-img" src="img/devotionmain.png" alt="Devotion — main painting by Elisa Della Faille">
+          <img class="card-img card-hover-img" src="img/devotiondetail.png" alt="Devotion — detail" aria-hidden="true">
         </div>
         <p class="card-name">Devotion</p>
       </div>
@@ -438,22 +411,8 @@
       <div class="collection-card" data-id="oracle-col" data-collection="The Oracle"
            role="button" tabindex="0" aria-label="Open The Oracle collection">
         <div class="card-img-wrap">
-          <svg class="card-img card-main-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
-               role="img" aria-label="The Oracle — main">
-            <rect width="300" height="400" fill="#EDD8CF"/>
-            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">The Oracle</text>
-            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">main</text>
-          </svg>
-          <svg class="card-img card-hover-img" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
-               role="img" aria-label="The Oracle — detail" aria-hidden="true">
-            <rect width="300" height="400" fill="#D9BFB4"/>
-            <text x="150" y="193" text-anchor="middle" fill="#9E8880" font-size="12"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">The Oracle</text>
-            <text x="150" y="214" text-anchor="middle" fill="#9E8880" font-size="10"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">detail</text>
-          </svg>
+          <img class="card-img card-main-img" src="img/theoraclemain.png" alt="The Oracle — main painting by Elisa Della Faille">
+          <img class="card-img card-hover-img" src="img/theoracledetail.png" alt="The Oracle — detail" aria-hidden="true">
         </div>
         <p class="card-name">The Oracle</p>
       </div>
@@ -476,6 +435,34 @@
   <script src="main.js" defer></script>
   <script>
   (function () {
+    // ── Painting data — update size and medium for each piece ──
+    const PAINTINGS = {
+      'Cities in the Sky': [
+        { label: '01', size: '00 × 00 cm', medium: 'Medium' },
+        { label: '02', size: '00 × 00 cm', medium: 'Medium' },
+        { label: '03', size: '00 × 00 cm', medium: 'Medium' },
+        { label: '04', size: '00 × 00 cm', medium: 'Medium' },
+      ],
+      'Welcome to Aurora': [
+        { label: '01', size: '00 × 00 cm', medium: 'Medium' },
+        { label: '02', size: '00 × 00 cm', medium: 'Medium' },
+        { label: '03', size: '00 × 00 cm', medium: 'Medium' },
+        { label: '04', size: '00 × 00 cm', medium: 'Medium' },
+      ],
+      'Devotion': [
+        { label: '01', size: '00 × 00 cm', medium: 'Medium' },
+        { label: '02', size: '00 × 00 cm', medium: 'Medium' },
+        { label: '03', size: '00 × 00 cm', medium: 'Medium' },
+        { label: '04', size: '00 × 00 cm', medium: 'Medium' },
+      ],
+      'The Oracle': [
+        { label: '01', size: '00 × 00 cm', medium: 'Medium' },
+        { label: '02', size: '00 × 00 cm', medium: 'Medium' },
+        { label: '03', size: '00 × 00 cm', medium: 'Medium' },
+        { label: '04', size: '00 × 00 cm', medium: 'Medium' },
+      ],
+    };
+
     const grid  = document.getElementById('collectionsGrid');
     const cards = Array.from(grid.querySelectorAll('.collection-card'));
     let activePanel = null;
@@ -578,16 +565,21 @@
       panel.setAttribute('role', 'region');
       panel.setAttribute('aria-label', esc(name) + ' — collection detail');
 
-      const images = [1, 2, 3, 4].map(n =>
-        `<div class="panel-img-wrap">
-          <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
-               role="img" aria-label="${esc(name)} — 0${n}">
-            <rect width="300" height="400" fill="#EDD8CF"/>
-            <text x="150" y="190" text-anchor="middle" fill="#9E8880" font-size="11"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">${esc(name)}</text>
-            <text x="150" y="210" text-anchor="middle" fill="#9E8880" font-size="10"
-                  font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">0${n}</text>
-          </svg>
+      const paintings = PAINTINGS[name] || [];
+      const images = paintings.map(p =>
+        `<div class="panel-item">
+          <div class="panel-img-wrap">
+            <svg viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg"
+                 role="img" aria-label="${esc(name)} — ${esc(p.label)}">
+              <rect width="300" height="400" fill="#EDD8CF"/>
+              <text x="150" y="190" text-anchor="middle" fill="#9E8880" font-size="11"
+                    font-family="Jost, sans-serif" font-weight="200" letter-spacing="2">${esc(name)}</text>
+              <text x="150" y="210" text-anchor="middle" fill="#9E8880" font-size="10"
+                    font-family="Jost, sans-serif" font-weight="200" letter-spacing="1">${esc(p.label)}</text>
+            </svg>
+          </div>
+          <p class="panel-item-size">${esc(p.size)}</p>
+          <p class="panel-item-medium">${esc(p.medium)}</p>
         </div>`
       ).join('');
 
