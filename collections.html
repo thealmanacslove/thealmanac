@@ -274,6 +274,31 @@
       max-width: 320px;
     }
 
+    /* ─── PANEL GDPR ─── */
+    .panel-gdpr {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .panel-gdpr input[type="checkbox"] {
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--klein);
+      width: 14px;
+      height: 14px;
+    }
+
+    .panel-gdpr span {
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 300;
+      color: #7A6E6A;
+      letter-spacing: 0.06em;
+      line-height: 1.7;
+    }
+
     /* ─── INQUIRE ─── */
     .panel-inquire-eyebrow {
       font-size: 10px;
@@ -779,6 +804,10 @@
                   <input type="text"  name="name"    placeholder="Name"    required autocomplete="name">
                   <input type="email" name="email"   placeholder="Email"   required autocomplete="email">
                   <textarea           name="message" placeholder="Message" rows="4"  required></textarea>
+                  <label class="panel-gdpr">
+                    <input type="checkbox" id="panel-gdpr-${esc(name.replace(/\s+/g,'-').toLowerCase())}">
+                    <span>I'd also like to receive news and updates from The Almanac. I can unsubscribe at any time.</span>
+                  </label>
                   <button type="submit" class="panel-submit">Send inquiry</button>
                 </form>
                 <p class="panel-success">Your message has been received. We'll be in touch.</p>
@@ -809,8 +838,9 @@
       // Form submit via fetch
       panel.querySelector('.panel-form').addEventListener('submit', async e => {
         e.preventDefault();
-        const form = e.target;
-        const btn  = form.querySelector('.panel-submit');
+        const form    = e.target;
+        const btn     = form.querySelector('.panel-submit');
+        const gdpr    = form.querySelector('input[type="checkbox"]');
         btn.disabled    = true;
         btn.textContent = 'Sending…';
         try {
@@ -820,6 +850,17 @@
           });
           const json = await res.json();
           if (json.success) {
+            // Silently subscribe to MailerLite if GDPR checkbox was checked
+            if (gdpr && gdpr.checked) {
+              const ml = new FormData();
+              ml.append('fields[email]', form.querySelector('[name="email"]').value.trim());
+              ml.append('fields[name]',  form.querySelector('[name="name"]').value.trim());
+              ml.append('ml-submit', '1');
+              ml.append('anticsrf', 'true');
+              fetch('https://assets.mailerlite.com/jsonp/2088881/forms/180370302660773235/subscribe', {
+                method: 'POST', body: ml, mode: 'no-cors'
+              }).catch(() => {});
+            }
             form.style.display = 'none';
             panel.querySelector('.panel-success').style.display = 'block';
           } else {
