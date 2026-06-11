@@ -227,13 +227,30 @@
       text-transform: uppercase;
     }
 
-    /* ─── INQUIRE ─── */
-    .panel-inquire {
+    /* ─── PANEL BOTTOM (description + inquire) ─── */
+    .panel-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
       border-top: 0.5px solid rgba(42, 40, 37, 0.15);
       padding-top: 32px;
       margin-top: 32px;
+      align-items: start;
     }
 
+    @media (max-width: 768px) {
+      .panel-bottom { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    .panel-description {
+      font-size: 15px;
+      font-weight: 200;
+      line-height: 1.9;
+      color: #2A2825;
+      max-width: 320px;
+    }
+
+    /* ─── INQUIRE ─── */
     .panel-inquire-eyebrow {
       font-size: 10px;
       font-weight: 300;
@@ -510,6 +527,14 @@
   <script src="main.js" defer></script>
   <script>
   (function () {
+    // ── Collection descriptions ──
+    const DESCRIPTIONS = {
+      'Cities in the Sky':  'There is a world beyond what the eyes can see. Watercolor and pastel exploration of the cities in the sky.',
+      'Welcome to Aurora':  'Mother Earth wants you to see. Watercolor and pastel exploration of Aurora Earth.',
+      'Devotion':           'A series of drawings in pencil and other medium exploring the currents of devotion as a living practice.',
+      'The Oracle':         'A pure oracle inviting you to question what you are percieving. 48 small watercolour paintings.',
+    };
+
     // ── Painting data — update size and medium for each piece ──
     const PAINTINGS = {
       'Cities in the Sky': [
@@ -676,6 +701,7 @@
       panel.setAttribute('role', 'region');
       panel.setAttribute('aria-label', esc(name) + ' — collection detail');
 
+      const description = DESCRIPTIONS[name] || '';
       const paintings = PAINTINGS[name] || [];
       const images = paintings.map(p => {
         const visual = p.src
@@ -707,19 +733,22 @@
               </button>
             </div>
             <div class="panel-scroll">${images}</div>
-            <div class="panel-inquire">
-              <p class="panel-inquire-eyebrow">Inquire about this collection</p>
-              <p class="panel-inquire-sub">Interested in a piece from this collection? Get in touch.</p>
-              <form class="panel-form" method="POST" action="https://api.web3forms.com/submit">
-                <input type="hidden" name="access_key" value="f516efd2-9aa2-4905-905f-8db6f4e9373d">
-                <input type="hidden" name="collection" value="${esc(name)}">
-                <input type="hidden" name="subject"    value="Collection inquiry — ${esc(name)}">
-                <input type="text"  name="name"    placeholder="Name"    required autocomplete="name">
-                <input type="email" name="email"   placeholder="Email"   required autocomplete="email">
-                <textarea           name="message" placeholder="Message" rows="4"  required></textarea>
-                <button type="submit" class="panel-submit">Send inquiry</button>
-              </form>
-              <p class="panel-success">Your message has been received. We'll be in touch.</p>
+            <div class="panel-bottom">
+              <div class="panel-inquire">
+                <p class="panel-inquire-eyebrow">Inquire about this collection</p>
+                <p class="panel-inquire-sub">Interested in a piece from this collection? Get in touch.</p>
+                <form class="panel-form" method="POST" action="https://api.web3forms.com/submit">
+                  <input type="hidden" name="access_key" value="f516efd2-9aa2-4905-905f-8db6f4e9373d">
+                  <input type="hidden" name="collection" value="${esc(name)}">
+                  <input type="hidden" name="subject"    value="Collection inquiry — ${esc(name)}">
+                  <input type="text"  name="name"    placeholder="Name"    required autocomplete="name">
+                  <input type="email" name="email"   placeholder="Email"   required autocomplete="email">
+                  <textarea           name="message" placeholder="Message" rows="4"  required></textarea>
+                  <button type="submit" class="panel-submit">Send inquiry</button>
+                </form>
+                <p class="panel-success">Your message has been received. We'll be in touch.</p>
+              </div>
+              <p class="panel-description">${esc(description)}</p>
             </div>
           </div>
         </div>`;

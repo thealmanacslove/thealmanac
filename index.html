@@ -385,7 +385,8 @@
         updateDots(current);
       }
 
-      track.addEventListener('transitionend', () => {
+      track.addEventListener('transitionend', (e) => {
+        if (e.propertyName !== 'transform') return;
         isTransitioning = false;
         if (pos === total + 1) { pos = 1; setPos(pos, false); }
         if (pos === 0)         { pos = total; setPos(pos, false); }
@@ -396,8 +397,11 @@
       function startAuto() { stopAuto(); autoTimer = setInterval(next, 4500); }
       function stopAuto()  { clearInterval(autoTimer); }
 
-      slider.addEventListener('mouseenter', stopAuto);
-      slider.addEventListener('mouseleave', startAuto);
+      // Only pause on real mouse hover, not on touch-simulated mouseenter
+      if (window.matchMedia('(hover: hover)').matches) {
+        slider.addEventListener('mouseenter', stopAuto);
+        slider.addEventListener('mouseleave', startAuto);
+      }
 
       let touchStartX = 0;
       slider.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; stopAuto(); }, { passive: true });
