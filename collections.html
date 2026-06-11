@@ -217,13 +217,21 @@
       display: block;
     }
 
-    .panel-item-size,
-    .panel-item-medium {
+    .panel-item-name {
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      margin-top: 8px;
+    }
+
+    .panel-item-medium,
+    .panel-item-size {
       font-size: 11px;
       font-weight: 300;
       letter-spacing: 0.1em;
       color: var(--muted);
-      margin-top: 6px;
+      margin-top: 4px;
       text-transform: uppercase;
     }
 
@@ -242,11 +250,27 @@
       .panel-bottom { grid-template-columns: 1fr; gap: 32px; }
     }
 
+    .panel-description-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
     .panel-description {
       font-size: 15px;
       font-weight: 200;
       line-height: 1.9;
       color: #2A2825;
+      max-width: 320px;
+    }
+
+    .panel-cta-note {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--body-text);
+      letter-spacing: 0.04em;
       max-width: 320px;
     }
 
@@ -532,37 +556,46 @@
       'Cities in the Sky':  'There is a world beyond what the eyes can see. Watercolor and pastel exploration of the cities in the sky.',
       'Welcome to Aurora':  'Mother Earth wants you to see. Watercolor and pastel exploration of Aurora Earth.',
       'Devotion':           'A series of drawings in pencil and other medium exploring the currents of devotion as a living practice.',
-      'The Oracle':         'A pure oracle inviting you to question what you are percieving. 48 small watercolour paintings.',
+      'The Oracle':         'A pure oracle inviting you to question what you are percieving. 48 small watercolour paintings and 4 larger explorations. Get just 3 or all 48 and play with the messages of your subconscious.',
+    };
+
+    // ── Per-collection CTA extras ──
+    const CTAS = {
+      'The Oracle': {
+        note: 'To find the cards that match your energy you can pull your codes here',
+        label: 'Pull your codes',
+        href:  'oracle.html',
+      },
     };
 
     // ── Painting data — update size and medium for each piece ──
     const PAINTINGS = {
       'Cities in the Sky': [
-        { label: 'Cities in the Sky 01', src: 'img/citiesinthesky1.webp', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Cities in the Sky 02', src: 'img/citiesinthesky2.webp', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Cities in the Sky 03', src: 'img/citiesinthesky3.webp', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Cities in the Sky 04', src: 'img/citiesinthesky4.webp', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Cities in the Sky 05', src: 'img/citiesinthesky5.webp', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Cities in the Sky 06', src: 'img/citiesinthesky6.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Cities in the Sky 01', name: 'citiesinthesky-01', src: 'img/citiesinthesky1.webp', size: '21.0 × 29.7 cm', medium: 'watercolor on paper' },
+        { label: 'Cities in the Sky 02', name: 'citiesinthesky-02', src: 'img/citiesinthesky2.webp', size: '10.5 × 14.8 cm', medium: 'watercolor on paper' },
+        { label: 'Cities in the Sky 03', name: 'citiesinthesky-03', src: 'img/citiesinthesky3.webp', size: '56×76 cm', medium: 'watercolor and pastel on paper' },
+        { label: 'Cities in the Sky 04', name: 'citiesinthesky-04', src: 'img/citiesinthesky4.webp', size: '42.0 × 59.4 cm', medium: 'watercolor on paper' },
+        { label: 'Cities in the Sky 05', name: 'citiesinthesky-05', src: 'img/citiesinthesky5.webp', size: '10.5 × 14.8 cm', medium: 'watercolor on paper' },
+        { label: 'Cities in the Sky 06', name: 'citiesinthesky-03', src: 'img/citiesinthesky6.webp', size: '56×76 cm', medium: 'Medium' },
       ],
       'Welcome to Aurora': [
-        { label: 'Welcome to Aurora 01', src: 'img/welcometoaurora1.webp', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Welcome to Aurora 02', src: 'img/welcometoaurora2.webp', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Welcome to Aurora 03', src: 'img/welcometoaurora3.webp', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Welcome to Aurora 04', src: 'img/welcometoaurora4.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Welcome to Aurora 01', name: 'welcometoaurora-01', src: 'img/welcometoaurora1.webp', size: '10.5 × 14.8 cm each', medium: 'watercolor and pen on paper' },
+        { label: 'Welcome to Aurora 02', name: 'welcometoaurora-02', src: 'img/welcometoaurora2.webp', size: '29.7 × 42.0 cm', medium: 'watercolor and pencil on paper' },
+        { label: 'Welcome to Aurora 01', name: 'welcometoaurora-03', src: 'img/welcometoaurora3.webp', size: '10.5 × 14.8 cm each', medium: 'watercolor and pen on paper' },
+        { label: 'Welcome to Aurora 04', name: 'welcometoaurora-04', src: 'img/welcometoaurora4.webp', size: '56×76 cm', medium: 'pastel on paper' },
       ],
       'Devotion': [
-        { label: 'Devotion 01', src: 'img/devotion1.webp', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Devotion 02', src: 'img/devotion2.webp', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Devotion 03', src: 'img/devotion3.webp', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Devotion 04', src: 'img/devotion4.webp', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'Devotion 05', src: 'img/devotion5.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'Devotion 01', name: 'devotion-01', src: 'img/devotion1.webp', size: '21.0 × 29.7 cm each', medium: 'pencil on paper' },
+        { label: 'Devotion 02', name: 'devotion-02', src: 'img/devotion2.webp', size: '21.0 × 29.7 cm', medium: 'pencil on paper' },
+        { label: 'Devotion 03', name: 'devotion-03', src: 'img/devotion3.webp', size: '21.0 × 29.7 cm', medium: 'pencil on paper' },
+        { label: 'Devotion 04', name: 'devotion of summer', src: 'img/devotion4.webp', size: '56×71 cm', medium: 'pencil on paper' },
+        { label: 'Devotion 05', name: 'devotlayers of devotion', src: 'img/devotion5.webp', size: '56×71 cm', medium: 'mixed media' },
       ],
       'The Oracle': [
-        { label: 'The Oracle 01', src: 'img/theoracle1.webp', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'The Oracle 02', src: 'img/theoracle2.webp', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'The Oracle 03', src: 'img/theoracle3.webp', size: '00 × 00 cm', medium: 'Medium' },
-        { label: 'The Oracle 04', src: 'img/theoracle4.webp', size: '00 × 00 cm', medium: 'Medium' },
+        { label: 'The Oracle 01', name: 'theoracle-01', src: 'img/theoracle1.webp', size: '14.8 × 21.0 cm each', medium: 'watercolor and pen on paper' },
+        { label: 'The Oracle 02', name: 'theoracle-02', src: 'img/theoracle2.webp', size: '7.4 × 10.5 cm each',  medium: 'watercolor on paper' },
+        { label: 'The Oracle 03', name: 'theoracle-03', src: 'img/theoracle3.webp', size: '14.8 × 21.0 cm',      medium: 'watercolor and pen on paper' },
+        { label: 'The Oracle 04', name: 'theoracle-04', src: 'img/theoracle4.webp', size: '7.4 × 10.5 cm each',  medium: 'watercolor on paper' },
       ],
     };
 
@@ -702,6 +735,7 @@
       panel.setAttribute('aria-label', esc(name) + ' — collection detail');
 
       const description = DESCRIPTIONS[name] || '';
+      const cta = CTAS[name] || null;
       const paintings = PAINTINGS[name] || [];
       const images = paintings.map(p => {
         const visual = p.src
@@ -716,8 +750,9 @@
             </svg>`;
         return `<div class="panel-item">
           <div class="panel-img-wrap">${visual}</div>
-          <p class="panel-item-size">${esc(p.size)}</p>
+          <p class="panel-item-name">${esc(p.name || p.label)}</p>
           <p class="panel-item-medium">${esc(p.medium)}</p>
+          <p class="panel-item-size">${esc(p.size)}</p>
         </div>`;
       }).join('');
 
@@ -748,7 +783,11 @@
                 </form>
                 <p class="panel-success">Your message has been received. We'll be in touch.</p>
               </div>
-              <p class="panel-description">${esc(description)}</p>
+              <div class="panel-description-wrap">
+                <p class="panel-description">${esc(description)}</p>
+                ${cta ? `<p class="panel-cta-note">${esc(cta.note)}</p>
+                <a href="${esc(cta.href)}" class="btn btn-primary panel-cta">${esc(cta.label)}</a>` : ''}
+              </div>
             </div>
           </div>
         </div>`;
