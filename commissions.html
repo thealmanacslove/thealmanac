@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Soul Portrait Commissions — The Almanac | Brussels</title>
+  <meta name="description" content="Intuitive soul portrait commissions by The Almanac. Energetic portraits of people, unions, homes and intentions. Brussels-based, shipped worldwide.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Soul Portrait Commissions — The Almanac">
+  <meta property="og:description" content="Intuitive soul portrait commissions by The Almanac. Energetic portraits of people, unions, homes and intentions. Brussels-based, shipped worldwide.">
+  <meta property="og:image" content="https://www.thealmanac.love/img/hero1.webp">
+  <meta property="og:url" content="https://www.thealmanac.love/commissions.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:site_name" content="The Almanac">
+
+  <link rel="canonical" href="https://www.thealmanac.love/commissions.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="img/almanaclogo.svg" type="image/svg+xml">
+
+  <style>
+    /* ─── HERO IMAGE ─── */
+    .comm-hero {
+      position: relative;
+      width: 100%;
+      height: 75vh;
+      min-height: 480px;
+      overflow: hidden;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .comm-hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+
+    .comm-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(42,40,37,0.1) 0%, rgba(42,40,37,0.45) 100%);
+    }
+
+    .comm-hero-text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 40px;
+    }
+
+    .comm-h1 {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(249,248,246,0.75);
+      margin-bottom: 16px;
+    }
+
+    .comm-tagline {
+      font-size: 36px;
+      font-weight: 200;
+      color: #F9F8F6;
+      letter-spacing: 0.04em;
+      line-height: 1.3;
+    }
+
+    /* ─── PAGE WRAPPER (text sections) ─── */
+    .comm-page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ─── SECTIONS ─── */
+    .comm-section {
+      padding: 80px 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    /* ─── HEADINGS ─── */
+    .comm-h2 {
+      font-size: 22px;
+      font-weight: 200;
+      color: var(--ink);
+      letter-spacing: 0.06em;
+      margin-bottom: 28px;
+    }
+
+    /* ─── BODY TEXT ─── */
+    .comm-body {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--body-text);
+      line-height: 1.9;
+      letter-spacing: 0.02em;
+    }
+
+    .comm-body + .comm-body { margin-top: 18px; }
+
+    /* ─── CTA ─── */
+    .comm-cta { margin-top: 36px; }
+
+    /* ─── PROCESS (wider container) ─── */
+    .comm-process-outer {
+      border-top: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+      padding: 80px 0;
+    }
+
+    .comm-process-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 clamp(28px, 4vw, 60px);
+    }
+
+    /* ─── CHAPTERS ─── */
+    .comm-chapter {
+      display: flex;
+      gap: 48px;
+      align-items: center;
+      margin-bottom: 72px;
+    }
+
+    .comm-chapter:last-of-type { margin-bottom: 48px; }
+
+    .comm-chapter.reverse { flex-direction: row-reverse; }
+
+    .comm-chapter-img {
+      flex: 0 0 50%;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+    }
+
+    .comm-chapter-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .comm-chapter-text { flex: 1; }
+
+    .comm-chapter-title {
+      font-size: 20px;
+      font-weight: 200;
+      font-style: italic;
+      color: #2A2825;
+      margin-bottom: 14px;
+    }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 640px) {
+      .comm-tagline   { font-size: 26px; }
+      .comm-hero      { height: 60vh; min-height: 360px; }
+      .comm-hero-text { padding: 28px; }
+      .comm-section   { padding: 56px 0; }
+      .comm-process-outer { padding: 56px 0; }
+
+      .comm-chapter,
+      .comm-chapter.reverse {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .comm-chapter-img { flex: none; width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="The Almanac — home">
+      <img src="img/almanaclogo.svg" alt="The Almanac" class="nav-logo-img">
+      <span class="nav-logo-text">The Almanac</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="collections.html">Collections</a></li>
+      <li><a href="commissions.html">Commissions</a></li>
+      <li><a href="studio.html">Studio</a></li>
+      <li><a href="oracle.html">Oracle</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li>
+        <a href="https://www.instagram.com/thealmanac.love/"
+           target="_blank" rel="noopener noreferrer"
+           class="nav-instagram" aria-label="The Almanac on Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- HERO IMAGE (full width) -->
+  <header class="comm-hero" aria-label="Soul Portrait Commissions">
+    <img class="comm-hero-img" src="img/customorderhero.jpg" alt="Soul portrait commission by The Almanac" loading="eager">
+    <div class="comm-hero-overlay" aria-hidden="true"></div>
+    <div class="comm-hero-text">
+      <h1 class="comm-h1">Soul Portrait Commissions</h1>
+      <p class="comm-tagline">Art to feel yourself breathing.</p>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- Text sections — narrow column -->
+    <div class="comm-page">
+
+      <!-- SECTION 1 — WHAT IS IT -->
+      <section class="comm-section" aria-labelledby="what-heading">
+        <h2 class="comm-h2" id="what-heading">What is a soul portrait</h2>
+        <p class="comm-body">A soul portrait is an intuitively created piece of art tailored to your energetic imprint. Each piece guided by the Almanac's sensitivity. Colours, shapes, materials — all holding a specific encryption and chosen for your exact frequency. Anchoring the colours of your soul, illuminating the movements of your breath, expressed freely.</p>
+        <p class="comm-body">Like a dancer moving with the music, the Almanac dances with your energy.</p>
+        <p class="comm-body">Inquiring for a custom piece is already starting the process of creating more beauty in your life — by following this nudge of your desire.</p>
+        <a href="commission-form.html" class="btn btn-primary comm-cta">Open the process</a>
+      </section>
+
+      <!-- SECTION 2 — THE ALMANAC LISTENS -->
+      <section class="comm-section" aria-labelledby="listens-heading" style="border-bottom: none;">
+        <h2 class="comm-h2" id="listens-heading">The Almanac listens — to a person, a union, a home, a desire</h2>
+        <p class="comm-body">Define your desire: a soul portrait of yourself, to celebrate your journey past and to come. A portrait of your union, existing or incoming — celebrating love and life. A portrait for your home or your business, liberating the potential at the core.</p>
+      </section>
+
+    </div>
+
+    <!-- PROCESS SECTION — wider container -->
+    <div class="comm-process-outer" aria-labelledby="process-heading">
+      <div class="comm-process-inner">
+
+        <h2 class="comm-h2" id="process-heading" style="margin-bottom: 40px;">The process</h2>
+
+        <!-- Chapter 1: The Inquiry -->
+        <div class="comm-chapter">
+          <div class="comm-chapter-img">
+            <img src="img/customorder1.jpg" alt="The Inquiry — beginning your soul portrait commission" loading="lazy">
+          </div>
+          <div class="comm-chapter-text">
+            <h3 class="comm-chapter-title">The Inquiry</h3>
+            <p class="comm-body">Fill in the short form. Once confirmed, the creation process begins.</p>
+          </div>
+        </div>
+
+        <!-- Chapter 2: The Journey (reversed) -->
+        <div class="comm-chapter reverse">
+          <div class="comm-chapter-img">
+            <img src="img/customorder2.jpg" alt="The Journey — the creation process" loading="lazy">
+          </div>
+          <div class="comm-chapter-text">
+            <h3 class="comm-chapter-title">The Journey</h3>
+            <p class="comm-body">Working with the lunar cycle, the process of creation takes at least 4 weeks for the Almanac to feel into the energy of the piece and choose the right moment of creation. You'll be included in each step of the process through a private communication channel.</p>
+          </div>
+        </div>
+
+        <!-- Chapter 3: The Reveal -->
+        <div class="comm-chapter">
+          <div class="comm-chapter-img">
+            <img src="img/customorder3.jpg" alt="The Reveal — receiving your soul portrait" loading="lazy">
+          </div>
+          <div class="comm-chapter-text">
+            <h3 class="comm-chapter-title">The Reveal</h3>
+            <p class="comm-body">Once created, the piece generally needs to breathe a little before being shipped securely to you.</p>
+          </div>
+        </div>
+
+        <a href="commission-form.html" class="btn btn-primary comm-cta">Open the process</a>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">thealmanac.love</span>
+    <p class="footer-copyright">© 2025–present Elisa Della Faille · The Almanac</p>
+    <ul class="footer-links">
+      <li><a href="legal.html">Legal Mentions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="https://www.instagram.com/thealmanac.love/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+      <li><a href="mailto:thealmanac.elisa@gmail.com">Email</a></li>
+    </ul>
+  </footer>
+
+  <script src="main.js" defer></script>
+
+</body>
+</html>

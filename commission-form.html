@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Begin Your Commission — The Almanac</title>
+  <meta name="description" content="Open the process for your soul portrait commission with The Almanac. Tell us about your vision and we'll be in touch.">
+  <meta name="robots" content="noindex">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Begin Your Commission — The Almanac">
+  <meta property="og:description" content="Open the process for your soul portrait commission with The Almanac.">
+  <meta property="og:image" content="https://www.thealmanac.love/img/hero1.webp">
+  <meta property="og:url" content="https://www.thealmanac.love/commission-form.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:site_name" content="The Almanac">
+
+  <link rel="canonical" href="https://www.thealmanac.love/commission-form.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@200;300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="img/almanaclogo.svg" type="image/svg+xml">
+
+  <style>
+    /* ─── PAGE ─── */
+    .form-page {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 80px 28px 100px;
+    }
+
+    .form-eyebrow {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #9E8880;
+      margin-bottom: 12px;
+    }
+
+    .form-heading {
+      font-size: 28px;
+      font-weight: 200;
+      color: #2A2825;
+      letter-spacing: 0.04em;
+      margin-bottom: 48px;
+    }
+
+    /* ─── FORM ─── */
+    .comm-form-step {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .comm-field { display: flex; flex-direction: column; gap: 6px; }
+
+    .comm-label {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9E8880;
+    }
+
+    .comm-input,
+    .comm-textarea {
+      background: #F9F8F6;
+      border: 0.5px solid #E2D8D2;
+      border-radius: 0;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 300;
+      color: #2A2825;
+      letter-spacing: 0.06em;
+      padding: 14px 16px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s ease;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .comm-textarea { resize: vertical; }
+
+    .comm-input:focus,
+    .comm-textarea:focus { border-color: var(--ink); }
+
+    .comm-input::placeholder,
+    .comm-textarea::placeholder {
+      color: #9E8880;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .comm-next-btn,
+    .comm-submit-btn { margin-top: 8px; }
+
+    .comm-gdpr {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    .comm-gdpr input[type="checkbox"] {
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--klein);
+      width: 14px;
+      height: 14px;
+    }
+
+    .comm-gdpr span {
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 300;
+      color: #7A6E6A;
+      letter-spacing: 0.06em;
+      line-height: 1.7;
+    }
+
+    .comm-error {
+      font-size: 11px;
+      color: #B04040;
+      letter-spacing: 0.06em;
+    }
+
+    .comm-success {
+      display: none;
+      font-size: 18px;
+      font-weight: 200;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    @keyframes commFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .comm-fade-in { animation: commFadeIn 0.4s ease forwards; }
+
+    @media (max-width: 640px) {
+      .form-page { padding: 56px 20px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav aria-label="Main navigation">
+    <a href="index.html" class="nav-logo" aria-label="The Almanac — home">
+      <img src="img/almanaclogo.svg" alt="The Almanac" class="nav-logo-img">
+      <span class="nav-logo-text">The Almanac</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="about.html">About</a></li>
+      <li><a href="collections.html">Collections</a></li>
+      <li><a href="commissions.html">Commissions</a></li>
+      <li><a href="studio.html">Studio</a></li>
+      <li><a href="oracle.html">Oracle</a></li>
+      <li><a href="store.html">Store</a></li>
+      <li>
+        <a href="https://www.instagram.com/thealmanac.love/"
+           target="_blank" rel="noopener noreferrer"
+           class="nav-instagram" aria-label="The Almanac on Instagram">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+    <div class="form-page">
+
+      <p class="form-eyebrow">Soul Portrait Commission</p>
+      <h1 class="form-heading">begin your journey</h1>
+
+      <form id="commForm" novalidate>
+        <input type="hidden" name="access_key" value="f516efd2-9aa2-4905-905f-8db6f4e9373d">
+        <input type="hidden" name="subject"    value="Soul portrait commission inquiry — The Almanac">
+
+        <!-- Step 1 -->
+        <div class="comm-form-step" id="commStep1">
+          <div class="comm-field">
+            <label class="comm-label" for="comm-name">Name</label>
+            <input class="comm-input" type="text" id="comm-name" name="name" placeholder="Your name" autocomplete="name">
+          </div>
+          <div class="comm-field">
+            <label class="comm-label" for="comm-email">Email</label>
+            <input class="comm-input" type="email" id="comm-email" name="email" placeholder="Your email" autocomplete="email">
+          </div>
+          <div class="comm-field">
+            <label class="comm-label" for="comm-phone">Phone</label>
+            <input class="comm-input" type="tel" id="comm-phone" name="phone" placeholder="Your phone" autocomplete="tel">
+          </div>
+          <p class="comm-error" id="commStep1Error" style="display:none;"></p>
+          <button type="button" class="btn btn-primary comm-next-btn" id="commNext">Next</button>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="comm-form-step" id="commStep2" style="display:none;">
+          <div class="comm-field">
+            <label class="comm-label" for="comm-celebrate">What do you want to celebrate with a soul portrait from the Almanac?</label>
+            <textarea class="comm-textarea" id="comm-celebrate" name="celebrate" rows="4" placeholder="Share your intention…"></textarea>
+          </div>
+          <div class="comm-field">
+            <label class="comm-label" for="comm-elements">Are there any specific elements that call to you in the Almanac's work?</label>
+            <textarea class="comm-textarea" id="comm-elements" name="elements" rows="4" placeholder="Colours, shapes, feelings…"></textarea>
+          </div>
+          <div class="comm-field">
+            <label class="comm-label" for="comm-vision">Vision (size, location)</label>
+            <input class="comm-input" type="text" id="comm-vision" name="vision" placeholder="e.g. A3, living room">
+          </div>
+          <div class="comm-field">
+            <label class="comm-label" for="comm-budget">Budget</label>
+            <input class="comm-input" type="text" id="comm-budget" name="budget" placeholder="Starting from 650€">
+          </div>
+          <div class="comm-field">
+            <label class="comm-label" for="comm-other">Any other question?</label>
+            <textarea class="comm-textarea" id="comm-other" name="other" rows="3" placeholder="Anything else on your mind…"></textarea>
+          </div>
+          <label class="comm-gdpr">
+            <input type="checkbox" id="commGdpr">
+            <span>I'd also like to receive news and updates from The Almanac. I can unsubscribe at any time.</span>
+          </label>
+          <p class="comm-error" id="commStep2Error" style="display:none;"></p>
+          <button type="submit" class="btn btn-primary comm-submit-btn">Send my inquiry</button>
+        </div>
+      </form>
+
+      <div class="comm-success" id="commSuccess">Your inquiry has been received. I'll be in touch soon.</div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">thealmanac.love</span>
+    <p class="footer-copyright">© 2025–present Elisa Della Faille · The Almanac</p>
+    <ul class="footer-links">
+      <li><a href="legal.html">Legal Mentions</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="https://www.instagram.com/thealmanac.love/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+      <li><a href="mailto:thealmanac.elisa@gmail.com">Email</a></li>
+    </ul>
+  </footer>
+
+  <script src="main.js" defer></script>
+  <script>
+  (function () {
+
+    // ── Step 1 → Step 2 ──
+    document.getElementById('commNext').addEventListener('click', function () {
+      const name  = document.getElementById('comm-name').value.trim();
+      const email = document.getElementById('comm-email').value.trim();
+      const err   = document.getElementById('commStep1Error');
+
+      if (!name) {
+        err.textContent = 'Please enter your name.';
+        err.style.display = 'block';
+        document.getElementById('comm-name').focus();
+        return;
+      }
+      if (!email || !email.includes('@')) {
+        err.textContent = 'Please enter a valid email address.';
+        err.style.display = 'block';
+        document.getElementById('comm-email').focus();
+        return;
+      }
+      err.style.display = 'none';
+
+      document.getElementById('commStep1').style.display = 'none';
+      const step2 = document.getElementById('commStep2');
+      step2.style.display = 'flex';
+      step2.classList.add('comm-fade-in');
+    });
+
+    // ── Submit ──
+    document.getElementById('commForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const form = this;
+      const btn  = form.querySelector('.comm-submit-btn');
+      const err  = document.getElementById('commStep2Error');
+
+      const celebrate = document.getElementById('comm-celebrate').value.trim();
+      if (!celebrate) {
+        err.textContent = 'Please share what you\'d like to celebrate.';
+        err.style.display = 'block';
+        document.getElementById('comm-celebrate').focus();
+        return;
+      }
+      err.style.display = 'none';
+
+      btn.disabled    = true;
+      btn.textContent = 'Sending…';
+
+      try {
+        const res  = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: new FormData(form)
+        });
+        const json = await res.json();
+
+        if (json.success) {
+          if (document.getElementById('commGdpr').checked) {
+            const ml = new FormData();
+            ml.append('fields[email]', document.getElementById('comm-email').value.trim());
+            ml.append('fields[name]',  document.getElementById('comm-name').value.trim());
+            ml.append('ml-submit', '1');
+            ml.append('anticsrf', 'true');
+            fetch('https://assets.mailerlite.com/jsonp/2088881/forms/180370302660773235/subscribe', {
+              method: 'POST', body: ml, mode: 'no-cors'
+            }).catch(() => {});
+          }
+          form.style.display = 'none';
+          const success = document.getElementById('commSuccess');
+          success.style.display = 'block';
+          success.classList.add('comm-fade-in');
+        } else {
+          btn.disabled    = false;
+          btn.textContent = 'Send my inquiry';
+        }
+      } catch {
+        btn.disabled    = false;
+        btn.textContent = 'Send my inquiry';
+      }
+    });
+
+  })();
+  </script>
+
+</body>
+</html>
